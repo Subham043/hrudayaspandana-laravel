@@ -4,6 +4,10 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -46,5 +50,18 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ThrottleRequestsException && $request->wantsJson()) {
+            $header = $request->header('x-ratelimit-remaining');
+            return response()->json([
+                'status' => false,
+                'message' => 'Too many attempts, please try again after '.$header.' seconds',
+            ], 429);
+        }
+
+        return parent::render($request, $exception);
     }
 }

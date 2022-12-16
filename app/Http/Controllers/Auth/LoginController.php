@@ -8,11 +8,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
+use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
+        if (RateLimiter::tooManyAttempts('send-message:'.$request->ip(), $perMinute = 5)) {
+            $seconds = RateLimiter::availableIn('send-message:'.$request->ip());
+         
+            return response()->json([
+                'status' => 'error',
+                'message' => 'You may try again in '.$seconds.' seconds.',
+            ], 400);
+        }
+
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',

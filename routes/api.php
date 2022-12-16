@@ -25,7 +25,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 Route::prefix('/auth')->group(function () {
-    Route::post('/login', [LoginController::class, 'login', 'as' => 'login']);
+    Route::group(['middleware' => 'throttle:3,1'], function () {
+        Route::post('/login', [LoginController::class, 'login', 'as' => 'login']);
+    });
     Route::post('/register', [RegisterController::class, 'register', 'as' => 'register']);
     Route::post('/forgot-password', [ForgotPasswordController::class, 'forgot_password', 'as' => 'forgot_password']);
     Route::get('/refresh', [RefreshController::class, 'refresh', 'as' => 'refresh']);
