@@ -16,6 +16,11 @@ use App\Http\Controllers\Contact\ContactCreateController;
 use App\Http\Controllers\Contact\ContactEditController;
 use App\Http\Controllers\Contact\ContactDeleteController;
 use App\Http\Controllers\Contact\ContactDisplayController;
+use App\Http\Controllers\Volunteer\VolunteerPaginateController;
+use App\Http\Controllers\Volunteer\VolunteerCreateController;
+use App\Http\Controllers\Volunteer\VolunteerEditController;
+use App\Http\Controllers\Volunteer\VolunteerDeleteController;
+use App\Http\Controllers\Volunteer\VolunteerDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +56,16 @@ Route::prefix('/contact')->group(function () {
     Route::get('/display/{id}', [ContactDisplayController::class, 'contact_display', 'as' => 'contact_display']);
     Route::delete('/delete/{id}', [ContactDeleteController::class, 'contact_delete', 'as' => 'contact_delete']);
     Route::get('/paginate', [ContactPaginateController::class, 'contact_paginate', 'as' => 'contact_paginate']);
+});
+
+Route::prefix('/volunteer')->group(function () {
+    Route::group(['middleware' => 'throttle:3,1'], function () {
+        Route::post('/create', [VolunteerCreateController::class, 'volunteer_create', 'as' => 'volunteer_create']);
+    });
+    Route::put('/edit/{id}', [VolunteerEditController::class, 'volunteer_edit', 'as' => 'volunteer_edit']);
+    Route::get('/display/{id}', [VolunteerDisplayController::class, 'volunteer_display', 'as' => 'volunteer_display']);
+    Route::delete('/delete/{id}', [VolunteerDeleteController::class, 'volunteer_delete', 'as' => 'volunteer_delete']);
+    Route::get('/paginate', [VolunteerPaginateController::class, 'volunteer_paginate', 'as' => 'volunteer_paginate']);
 });
 
 

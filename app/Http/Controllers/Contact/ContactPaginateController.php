@@ -16,7 +16,7 @@ class ContactPaginateController extends Controller
     
     public function contact_paginate(Request $request){
 
-        $enquiry = Enquiry::orderBy('id', 'DESC')->paginate(5);
+        $enquiry = Enquiry::orderBy('id', 'DESC')->paginate(10);
 
         return response()->json([
             'status' => 'success',
