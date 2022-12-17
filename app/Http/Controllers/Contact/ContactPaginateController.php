@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
-use App\Http\Resources\EnquiryPaginationCollection;
 
 class ContactPaginateController extends Controller
 {

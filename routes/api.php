@@ -21,6 +21,11 @@ use App\Http\Controllers\Volunteer\VolunteerCreateController;
 use App\Http\Controllers\Volunteer\VolunteerEditController;
 use App\Http\Controllers\Volunteer\VolunteerDeleteController;
 use App\Http\Controllers\Volunteer\VolunteerDisplayController;
+use App\Http\Controllers\Subscription\SubscriptionPaginateController;
+use App\Http\Controllers\Subscription\SubscriptionCreateController;
+use App\Http\Controllers\Subscription\SubscriptionEditController;
+use App\Http\Controllers\Subscription\SubscriptionDeleteController;
+use App\Http\Controllers\Subscription\SubscriptionDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +71,16 @@ Route::prefix('/volunteer')->group(function () {
     Route::get('/display/{id}', [VolunteerDisplayController::class, 'volunteer_display', 'as' => 'volunteer_display']);
     Route::delete('/delete/{id}', [VolunteerDeleteController::class, 'volunteer_delete', 'as' => 'volunteer_delete']);
     Route::get('/paginate', [VolunteerPaginateController::class, 'volunteer_paginate', 'as' => 'volunteer_paginate']);
+});
+
+Route::prefix('/subscription')->group(function () {
+    Route::group(['middleware' => 'throttle:3,1'], function () {
+        Route::post('/create', [SubscriptionCreateController::class, 'subscription_create', 'as' => 'subscription_create']);
+    });
+    Route::put('/edit/{id}', [SubscriptionEditController::class, 'subscription_edit', 'as' => 'subscription_edit']);
+    Route::get('/display/{id}', [SubscriptionDisplayController::class, 'subscription_display', 'as' => 'subscription_display']);
+    Route::delete('/delete/{id}', [SubscriptionDeleteController::class, 'subscription_delete', 'as' => 'subscription_delete']);
+    Route::get('/paginate', [SubscriptionPaginateController::class, 'subscription_paginate', 'as' => 'subscription_paginate']);
 });
 
 
