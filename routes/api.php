@@ -31,6 +31,11 @@ use App\Http\Controllers\Crossword\CrosswordCreateController;
 use App\Http\Controllers\Crossword\CrosswordEditController;
 use App\Http\Controllers\Crossword\CrosswordDeleteController;
 use App\Http\Controllers\Crossword\CrosswordDisplayController;
+use App\Http\Controllers\Email\EmailPaginateController;
+use App\Http\Controllers\Email\EmailCreateController;
+use App\Http\Controllers\Email\EmailEditController;
+use App\Http\Controllers\Email\EmailDeleteController;
+use App\Http\Controllers\Email\EmailDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +99,14 @@ Route::prefix('/crossword')->group(function () {
     Route::get('/display/{id}', [CrosswordDisplayController::class, 'crossword_display', 'as' => 'crossword_display']);
     Route::delete('/delete/{id}', [CrosswordDeleteController::class, 'crossword_delete', 'as' => 'crossword_delete']);
     Route::get('/paginate', [CrosswordPaginateController::class, 'crossword_paginate', 'as' => 'crossword_paginate']);
+});
+
+Route::prefix('/email')->group(function () {
+    Route::post('/create', [EmailCreateController::class, 'email_create', 'as' => 'email_create']);
+    Route::post('/edit/{id}', [EmailEditController::class, 'email_edit', 'as' => 'email_edit']);
+    Route::get('/display/{id}', [EmailDisplayController::class, 'email_display', 'as' => 'email_display']);
+    Route::delete('/delete/{id}', [EmailDeleteController::class, 'email_delete', 'as' => 'email_delete']);
+    Route::get('/paginate', [EmailPaginateController::class, 'email_paginate', 'as' => 'email_paginate']);
 });
 
 
