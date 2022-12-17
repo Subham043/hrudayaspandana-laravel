@@ -11,6 +11,11 @@ use App\Http\Controllers\Auth\ResendOTPController;
 use App\Http\Controllers\Auth\VerifyUserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Contact\ContactPaginateController;
+use App\Http\Controllers\Contact\ContactCreateController;
+use App\Http\Controllers\Contact\ContactEditController;
+use App\Http\Controllers\Contact\ContactDeleteController;
+use App\Http\Controllers\Contact\ContactDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +41,16 @@ Route::prefix('/auth')->group(function () {
     Route::get('/resend-otp/{user_id}', [ResendOTPController::class, 'send_otp', 'as' => 'send_otp']);
     Route::post('/verify-user/{user_id}', [VerifyUserController::class, 'verify_user', 'as' => 'verify_user']);
     Route::post('/reset-password/{user_id}', [ResetPasswordController::class, 'reset_password', 'as' => 'reset_password']);
+});
+
+Route::prefix('/contact')->group(function () {
+    Route::group(['middleware' => 'throttle:3,1'], function () {
+        Route::post('/create', [ContactCreateController::class, 'contact_create', 'as' => 'contact_create']);
+    });
+    Route::put('/edit/{id}', [ContactEditController::class, 'contact_edit', 'as' => 'contact_edit']);
+    Route::get('/display/{id}', [ContactDisplayController::class, 'contact_display', 'as' => 'contact_display']);
+    Route::delete('/delete/{id}', [ContactDeleteController::class, 'contact_delete', 'as' => 'contact_delete']);
+    Route::get('/paginate', [ContactPaginateController::class, 'contact_paginate', 'as' => 'contact_paginate']);
 });
 
 

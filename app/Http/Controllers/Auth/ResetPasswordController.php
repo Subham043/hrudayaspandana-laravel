@@ -15,15 +15,8 @@ use Carbon\Carbon;
 class ResetPasswordController extends Controller
 {
     public function reset_password(Request $request, $user_id){
-        try {
-            $decryptedId = Crypt::decryptString($user_id);
-            $user = User::where('id', $decryptedId)->firstOrFail();
-        } catch (DecryptException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! You have entered invalid link',
-            ], 400);
-        }
+        $decryptedId = Crypt::decryptString($user_id);
+        $user = User::where('id', $decryptedId)->firstOrFail();
         if($user->status==0){
             return response()->json([
                 'status' => 'error',

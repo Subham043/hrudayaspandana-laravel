@@ -14,16 +14,9 @@ use Illuminate\Contracts\Encryption\DecryptException;
 class ResendOTPController extends Controller
 {
     public function send_otp(Request $request, $user_id){
-        try {
-            $decryptedId = Crypt::decryptString($user_id);
-            $user = User::findOrFail($decryptedId);
-        } catch (DecryptException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! You have entered invalid link',
-            ], 400);
-        }
-
+        
+        $decryptedId = Crypt::decryptString($user_id);
+        $user = User::findOrFail($decryptedId);
         $user->otp = rand(1000,9999);
         $user->save();
 

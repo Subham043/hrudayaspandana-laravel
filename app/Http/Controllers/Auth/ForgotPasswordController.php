@@ -16,14 +16,7 @@ class ForgotPasswordController extends Controller
             'email' => 'required|string|email|max:255',
         ]);
 
-        try {
-            $user = User::where('email', $request->email)->firstOrFail();
-        } catch (DecryptException $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Email does not exist.',
-            ], 400);
-        }
+        $user = User::where('email', $request->email)->firstOrFail();
 
         if($user->status==0){
             return response()->json([

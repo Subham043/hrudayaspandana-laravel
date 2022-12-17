@@ -7,6 +7,9 @@ use Throwable;
 use Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Illuminate\Http\Response;
 
 
 class Handler extends ExceptionHandler
@@ -55,11 +58,31 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof ThrottleRequestsException && $request->wantsJson()) {
-            $header = $request->header('x-ratelimit-remaining');
             return response()->json([
                 'status' => false,
-                'message' => 'Too many attempts, please try again after '.$header.' seconds',
+                'message' => 'Too many attempts, please try again after sometime',
             ], 429);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException && $request->wantsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
+            ], 405);
+        }
+        
+        if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Oops! No data found ',
+            ], Response::HTTP_NOT_FOUND);
+        }
+        
+        if ($exception instanceof DecryptException && $request->wantsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Oops! You have entered invalid link',
+            ], Response::HTTP_NOT_FOUND);
         }
 
         return parent::render($request, $exception);
