@@ -18,7 +18,7 @@ class CrosswordCollection extends JsonResource
             'crossword_id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'image' => $this->image,
+            'image' => asset('storage/upload/crossword/'.$this->image),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
