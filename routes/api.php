@@ -26,6 +26,11 @@ use App\Http\Controllers\Subscription\SubscriptionCreateController;
 use App\Http\Controllers\Subscription\SubscriptionEditController;
 use App\Http\Controllers\Subscription\SubscriptionDeleteController;
 use App\Http\Controllers\Subscription\SubscriptionDisplayController;
+use App\Http\Controllers\Crossword\CrosswordPaginateController;
+use App\Http\Controllers\Crossword\CrosswordCreateController;
+use App\Http\Controllers\Crossword\CrosswordEditController;
+use App\Http\Controllers\Crossword\CrosswordDeleteController;
+use App\Http\Controllers\Crossword\CrosswordDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +86,14 @@ Route::prefix('/subscription')->group(function () {
     Route::get('/display/{id}', [SubscriptionDisplayController::class, 'subscription_display', 'as' => 'subscription_display']);
     Route::delete('/delete/{id}', [SubscriptionDeleteController::class, 'subscription_delete', 'as' => 'subscription_delete']);
     Route::get('/paginate', [SubscriptionPaginateController::class, 'subscription_paginate', 'as' => 'subscription_paginate']);
+});
+
+Route::prefix('/crossword')->group(function () {
+    Route::post('/create', [CrosswordCreateController::class, 'crossword_create', 'as' => 'crossword_create']);
+    Route::post('/edit/{id}', [CrosswordEditController::class, 'crossword_edit', 'as' => 'crossword_edit']);
+    Route::get('/display/{id}', [CrosswordDisplayController::class, 'crossword_display', 'as' => 'crossword_display']);
+    Route::delete('/delete/{id}', [CrosswordDeleteController::class, 'crossword_delete', 'as' => 'crossword_delete']);
+    Route::get('/paginate', [CrosswordPaginateController::class, 'crossword_paginate', 'as' => 'crossword_paginate']);
 });
 
 

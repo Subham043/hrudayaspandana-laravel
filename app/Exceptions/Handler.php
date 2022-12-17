@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Http\Response;
 
 
@@ -75,6 +76,13 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'status' => 'error',
                 'message' => 'Oops! No data found ',
+            ], Response::HTTP_NOT_FOUND);
+        }
+        
+        if ($exception instanceof NotFoundHttpException && $request->wantsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Oops! Invalid link',
             ], Response::HTTP_NOT_FOUND);
         }
         
