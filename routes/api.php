@@ -36,6 +36,11 @@ use App\Http\Controllers\Email\EmailCreateController;
 use App\Http\Controllers\Email\EmailEditController;
 use App\Http\Controllers\Email\EmailDeleteController;
 use App\Http\Controllers\Email\EmailDisplayController;
+use App\Http\Controllers\Literature\LiteraturePaginateController;
+use App\Http\Controllers\Literature\LiteratureCreateController;
+use App\Http\Controllers\Literature\LiteratureEditController;
+use App\Http\Controllers\Literature\LiteratureDeleteController;
+use App\Http\Controllers\Literature\LiteratureDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +112,14 @@ Route::prefix('/email')->group(function () {
     Route::get('/display/{id}', [EmailDisplayController::class, 'email_display', 'as' => 'email_display']);
     Route::delete('/delete/{id}', [EmailDeleteController::class, 'email_delete', 'as' => 'email_delete']);
     Route::get('/paginate', [EmailPaginateController::class, 'email_paginate', 'as' => 'email_paginate']);
+});
+
+Route::prefix('/literature')->group(function () {
+    Route::post('/create', [LiteratureCreateController::class, 'literature_create', 'as' => 'literature_create']);
+    Route::post('/edit/{id}', [LiteratureEditController::class, 'literature_edit', 'as' => 'literature_edit']);
+    Route::get('/display/{id}', [LiteratureDisplayController::class, 'literature_display', 'as' => 'literature_display']);
+    Route::delete('/delete/{id}', [LiteratureDeleteController::class, 'literature_delete', 'as' => 'literature_delete']);
+    Route::get('/paginate', [LiteraturePaginateController::class, 'literature_paginate', 'as' => 'literature_paginate']);
 });
 
 
