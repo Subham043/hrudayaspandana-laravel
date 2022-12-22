@@ -51,6 +51,11 @@ use App\Http\Controllers\Testimonial\TestimonialCreateController;
 use App\Http\Controllers\Testimonial\TestimonialEditController;
 use App\Http\Controllers\Testimonial\TestimonialDeleteController;
 use App\Http\Controllers\Testimonial\TestimonialDisplayController;
+use App\Http\Controllers\Media\MediaPaginateController;
+use App\Http\Controllers\Media\MediaCreateController;
+use App\Http\Controllers\Media\MediaEditController;
+use App\Http\Controllers\Media\MediaDeleteController;
+use App\Http\Controllers\Media\MediaDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +151,14 @@ Route::prefix('/testimonial')->group(function () {
     Route::get('/display/{id}', [TestimonialDisplayController::class, 'testimonial_display', 'as' => 'testimonial_display']);
     Route::delete('/delete/{id}', [TestimonialDeleteController::class, 'testimonial_delete', 'as' => 'testimonial_delete']);
     Route::get('/paginate', [TestimonialPaginateController::class, 'testimonial_paginate', 'as' => 'testimonial_paginate']);
+});
+
+Route::prefix('/media')->group(function () {
+    Route::post('/create', [MediaCreateController::class, 'media_create', 'as' => 'media_create']);
+    Route::post('/edit/{id}', [MediaEditController::class, 'media_edit', 'as' => 'media_edit']);
+    Route::get('/display/{id}', [MediaDisplayController::class, 'media_display', 'as' => 'media_display']);
+    Route::delete('/delete/{id}', [MediaDeleteController::class, 'media_delete', 'as' => 'media_delete']);
+    Route::get('/paginate', [MediaPaginateController::class, 'media_paginate', 'as' => 'media_paginate']);
 });
 
 
