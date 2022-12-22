@@ -56,6 +56,11 @@ use App\Http\Controllers\Media\MediaCreateController;
 use App\Http\Controllers\Media\MediaEditController;
 use App\Http\Controllers\Media\MediaDeleteController;
 use App\Http\Controllers\Media\MediaDisplayController;
+use App\Http\Controllers\Banner\BannerPaginateController;
+use App\Http\Controllers\Banner\BannerCreateController;
+use App\Http\Controllers\Banner\BannerEditController;
+use App\Http\Controllers\Banner\BannerDeleteController;
+use App\Http\Controllers\Banner\BannerDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,6 +164,14 @@ Route::prefix('/media')->group(function () {
     Route::get('/display/{id}', [MediaDisplayController::class, 'media_display', 'as' => 'media_display']);
     Route::delete('/delete/{id}', [MediaDeleteController::class, 'media_delete', 'as' => 'media_delete']);
     Route::get('/paginate', [MediaPaginateController::class, 'media_paginate', 'as' => 'media_paginate']);
+});
+
+Route::prefix('/banner')->group(function () {
+    Route::post('/create', [BannerCreateController::class, 'banner_create', 'as' => 'banner_create']);
+    Route::post('/edit/{id}', [BannerEditController::class, 'banner_edit', 'as' => 'banner_edit']);
+    Route::get('/display/{id}', [BannerDisplayController::class, 'banner_display', 'as' => 'banner_display']);
+    Route::delete('/delete/{id}', [BannerDeleteController::class, 'banner_delete', 'as' => 'banner_delete']);
+    Route::get('/paginate', [BannerPaginateController::class, 'banner_paginate', 'as' => 'banner_paginate']);
 });
 
 
