@@ -46,6 +46,11 @@ use App\Http\Controllers\EHundi\EHundiCreateController;
 use App\Http\Controllers\EHundi\EHundiEditController;
 use App\Http\Controllers\EHundi\EHundiDeleteController;
 use App\Http\Controllers\EHundi\EHundiDisplayController;
+use App\Http\Controllers\Testimonial\TestimonialPaginateController;
+use App\Http\Controllers\Testimonial\TestimonialCreateController;
+use App\Http\Controllers\Testimonial\TestimonialEditController;
+use App\Http\Controllers\Testimonial\TestimonialDeleteController;
+use App\Http\Controllers\Testimonial\TestimonialDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,6 +138,14 @@ Route::prefix('/e-hundi')->group(function () {
     Route::get('/display/{id}', [EHundiDisplayController::class, 'ehundi_display', 'as' => 'ehundi_display']);
     Route::delete('/delete/{id}', [EHundiDeleteController::class, 'ehundi_delete', 'as' => 'ehundi_delete']);
     Route::get('/paginate', [EHundiPaginateController::class, 'ehundi_paginate', 'as' => 'ehundi_paginate']);
+});
+
+Route::prefix('/testimonial')->group(function () {
+    Route::post('/create', [TestimonialCreateController::class, 'testimonial_create', 'as' => 'testimonial_create']);
+    Route::put('/edit/{id}', [TestimonialEditController::class, 'testimonial_edit', 'as' => 'testimonial_edit']);
+    Route::get('/display/{id}', [TestimonialDisplayController::class, 'testimonial_display', 'as' => 'testimonial_display']);
+    Route::delete('/delete/{id}', [TestimonialDeleteController::class, 'testimonial_delete', 'as' => 'testimonial_delete']);
+    Route::get('/paginate', [TestimonialPaginateController::class, 'testimonial_paginate', 'as' => 'testimonial_paginate']);
 });
 
 
