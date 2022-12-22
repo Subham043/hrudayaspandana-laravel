@@ -41,6 +41,11 @@ use App\Http\Controllers\Literature\LiteratureCreateController;
 use App\Http\Controllers\Literature\LiteratureEditController;
 use App\Http\Controllers\Literature\LiteratureDeleteController;
 use App\Http\Controllers\Literature\LiteratureDisplayController;
+use App\Http\Controllers\EHundi\EHundiPaginateController;
+use App\Http\Controllers\EHundi\EHundiCreateController;
+use App\Http\Controllers\EHundi\EHundiEditController;
+use App\Http\Controllers\EHundi\EHundiDeleteController;
+use App\Http\Controllers\EHundi\EHundiDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +125,14 @@ Route::prefix('/literature')->group(function () {
     Route::get('/display/{id}', [LiteratureDisplayController::class, 'literature_display', 'as' => 'literature_display']);
     Route::delete('/delete/{id}', [LiteratureDeleteController::class, 'literature_delete', 'as' => 'literature_delete']);
     Route::get('/paginate', [LiteraturePaginateController::class, 'literature_paginate', 'as' => 'literature_paginate']);
+});
+
+Route::prefix('/e-hundi')->group(function () {
+    Route::post('/create', [EHundiCreateController::class, 'ehundi_create', 'as' => 'ehundi_create']);
+    Route::put('/edit/{id}', [EHundiEditController::class, 'ehundi_edit', 'as' => 'ehundi_edit']);
+    Route::get('/display/{id}', [EHundiDisplayController::class, 'ehundi_display', 'as' => 'ehundi_display']);
+    Route::delete('/delete/{id}', [EHundiDeleteController::class, 'ehundi_delete', 'as' => 'ehundi_delete']);
+    Route::get('/paginate', [EHundiPaginateController::class, 'ehundi_paginate', 'as' => 'ehundi_paginate']);
 });
 
 
