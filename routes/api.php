@@ -81,6 +81,8 @@ use App\Http\Controllers\GalleryVideo\GalleryVideoCreateController;
 use App\Http\Controllers\GalleryVideo\GalleryVideoEditController;
 use App\Http\Controllers\GalleryVideo\GalleryVideoDeleteController;
 use App\Http\Controllers\GalleryVideo\GalleryVideoDisplayController;
+use App\Http\Controllers\BannerVideo\BannerVideoEditController;
+use App\Http\Controllers\BannerVideo\BannerVideoDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -224,6 +226,11 @@ Route::prefix('/gallery-video')->group(function () {
     Route::get('/display/{id}', [GalleryVideoDisplayController::class, 'gallery_video_display', 'as' => 'gallery_video_display']);
     Route::delete('/delete/{id}', [GalleryVideoDeleteController::class, 'gallery_video_delete', 'as' => 'gallery_video_delete']);
     Route::get('/paginate', [GalleryVideoPaginateController::class, 'gallery_video_paginate', 'as' => 'gallery_video_paginate']);
+});
+
+Route::prefix('/banner-video')->group(function () {
+    Route::put('/edit', [BannerVideoEditController::class, 'banner_video_edit', 'as' => 'banner_video_edit']);
+    Route::get('/display', [BannerVideoDisplayController::class, 'banner_video_display', 'as' => 'banner_video_display']);
 });
 
 });
