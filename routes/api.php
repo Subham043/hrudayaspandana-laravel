@@ -76,6 +76,11 @@ use App\Http\Controllers\GalleryAudio\GalleryAudioCreateController;
 use App\Http\Controllers\GalleryAudio\GalleryAudioEditController;
 use App\Http\Controllers\GalleryAudio\GalleryAudioDeleteController;
 use App\Http\Controllers\GalleryAudio\GalleryAudioDisplayController;
+use App\Http\Controllers\GalleryVideo\GalleryVideoPaginateController;
+use App\Http\Controllers\GalleryVideo\GalleryVideoCreateController;
+use App\Http\Controllers\GalleryVideo\GalleryVideoEditController;
+use App\Http\Controllers\GalleryVideo\GalleryVideoDeleteController;
+use App\Http\Controllers\GalleryVideo\GalleryVideoDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -211,6 +216,14 @@ Route::prefix('/gallery-audio')->group(function () {
     Route::get('/display/{id}', [GalleryAudioDisplayController::class, 'gallery_audio_display', 'as' => 'gallery_audio_display']);
     Route::delete('/delete/{id}', [GalleryAudioDeleteController::class, 'gallery_audio_delete', 'as' => 'gallery_audio_delete']);
     Route::get('/paginate', [GalleryAudioPaginateController::class, 'gallery_audio_paginate', 'as' => 'gallery_audio_paginate']);
+});
+
+Route::prefix('/gallery-video')->group(function () {
+    Route::post('/create', [GalleryVideoCreateController::class, 'gallery_video_create', 'as' => 'gallery_video_create']);
+    Route::put('/edit/{id}', [GalleryVideoEditController::class, 'gallery_video_edit', 'as' => 'gallery_video_edit']);
+    Route::get('/display/{id}', [GalleryVideoDisplayController::class, 'gallery_video_display', 'as' => 'gallery_video_display']);
+    Route::delete('/delete/{id}', [GalleryVideoDeleteController::class, 'gallery_video_delete', 'as' => 'gallery_video_delete']);
+    Route::get('/paginate', [GalleryVideoPaginateController::class, 'gallery_video_paginate', 'as' => 'gallery_video_paginate']);
 });
 
 });
