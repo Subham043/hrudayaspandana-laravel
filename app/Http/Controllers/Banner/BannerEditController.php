@@ -37,8 +37,7 @@ class BannerEditController extends Controller
         }
 
         $banner->update([
-            'title' => $request->title,
-            'description' => $request->description,
+            'quote' => $request->quote,
             'image' => $image,
         ]);
 

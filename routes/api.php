@@ -61,6 +61,16 @@ use App\Http\Controllers\Banner\BannerCreateController;
 use App\Http\Controllers\Banner\BannerEditController;
 use App\Http\Controllers\Banner\BannerDeleteController;
 use App\Http\Controllers\Banner\BannerDisplayController;
+use App\Http\Controllers\User\UserPaginateController;
+use App\Http\Controllers\User\UserPasswordController;
+use App\Http\Controllers\User\UserStatusController;
+use App\Http\Controllers\User\UserDeleteController;
+use App\Http\Controllers\User\UserDisplayController;
+use App\Http\Controllers\GalleryImage\GalleryImagePaginateController;
+use App\Http\Controllers\GalleryImage\GalleryImageCreateController;
+use App\Http\Controllers\GalleryImage\GalleryImageEditController;
+use App\Http\Controllers\GalleryImage\GalleryImageDeleteController;
+use App\Http\Controllers\GalleryImage\GalleryImageDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,5 +184,20 @@ Route::prefix('/banner')->group(function () {
     Route::get('/paginate', [BannerPaginateController::class, 'banner_paginate', 'as' => 'banner_paginate']);
 });
 
+Route::prefix('/user')->group(function () {
+    Route::post('/password/{id}', [UserPasswordController::class, 'user_password', 'as' => 'user_password']);
+    Route::get('/status/{id}', [UserStatusController::class, 'user_status', 'as' => 'user_status']);
+    Route::get('/display/{id}', [UserDisplayController::class, 'user_display', 'as' => 'user_display']);
+    Route::delete('/delete/{id}', [UserDeleteController::class, 'user_delete', 'as' => 'user_delete']);
+    Route::get('/paginate', [UserPaginateController::class, 'user_paginate', 'as' => 'user_paginate']);
+});
+
+Route::prefix('/gallery-image')->group(function () {
+    Route::post('/create', [GalleryImageCreateController::class, 'gallery_image_create', 'as' => 'gallery_image_create']);
+    Route::post('/edit/{id}', [GalleryImageEditController::class, 'gallery_image_edit', 'as' => 'gallery_image_edit']);
+    Route::get('/display/{id}', [GalleryImageDisplayController::class, 'gallery_image_display', 'as' => 'gallery_image_display']);
+    Route::delete('/delete/{id}', [GalleryImageDeleteController::class, 'gallery_image_delete', 'as' => 'gallery_image_delete']);
+    Route::get('/paginate', [GalleryImagePaginateController::class, 'gallery_image_paginate', 'as' => 'gallery_image_paginate']);
+});
 
 });
