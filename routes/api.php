@@ -114,7 +114,7 @@ Route::prefix('/contact')->group(function () {
     Route::group(['middleware' => 'throttle:3,1'], function () {
         Route::post('/create', [ContactCreateController::class, 'contact_create', 'as' => 'contact_create']);
     });
-    Route::put('/edit/{id}', [ContactEditController::class, 'contact_edit', 'as' => 'contact_edit']);
+    Route::post('/edit/{id}', [ContactEditController::class, 'contact_edit', 'as' => 'contact_edit']);
     Route::get('/display/{id}', [ContactDisplayController::class, 'contact_display', 'as' => 'contact_display']);
     Route::delete('/delete/{id}', [ContactDeleteController::class, 'contact_delete', 'as' => 'contact_delete']);
     Route::get('/paginate', [ContactPaginateController::class, 'contact_paginate', 'as' => 'contact_paginate']);
@@ -124,7 +124,7 @@ Route::prefix('/volunteer')->group(function () {
     Route::group(['middleware' => 'throttle:3,1'], function () {
         Route::post('/create', [VolunteerCreateController::class, 'volunteer_create', 'as' => 'volunteer_create']);
     });
-    Route::put('/edit/{id}', [VolunteerEditController::class, 'volunteer_edit', 'as' => 'volunteer_edit']);
+    Route::post('/edit/{id}', [VolunteerEditController::class, 'volunteer_edit', 'as' => 'volunteer_edit']);
     Route::get('/display/{id}', [VolunteerDisplayController::class, 'volunteer_display', 'as' => 'volunteer_display']);
     Route::delete('/delete/{id}', [VolunteerDeleteController::class, 'volunteer_delete', 'as' => 'volunteer_delete']);
     Route::get('/paginate', [VolunteerPaginateController::class, 'volunteer_paginate', 'as' => 'volunteer_paginate']);
@@ -134,7 +134,7 @@ Route::prefix('/subscription')->group(function () {
     Route::group(['middleware' => 'throttle:3,1'], function () {
         Route::post('/create', [SubscriptionCreateController::class, 'subscription_create', 'as' => 'subscription_create']);
     });
-    Route::put('/edit/{id}', [SubscriptionEditController::class, 'subscription_edit', 'as' => 'subscription_edit']);
+    Route::post('/edit/{id}', [SubscriptionEditController::class, 'subscription_edit', 'as' => 'subscription_edit']);
     Route::get('/display/{id}', [SubscriptionDisplayController::class, 'subscription_display', 'as' => 'subscription_display']);
     Route::delete('/delete/{id}', [SubscriptionDeleteController::class, 'subscription_delete', 'as' => 'subscription_delete']);
     Route::get('/paginate', [SubscriptionPaginateController::class, 'subscription_paginate', 'as' => 'subscription_paginate']);
@@ -166,7 +166,7 @@ Route::prefix('/literature')->group(function () {
 
 Route::prefix('/e-hundi')->group(function () {
     Route::post('/create', [EHundiCreateController::class, 'ehundi_create', 'as' => 'ehundi_create']);
-    Route::put('/edit/{id}', [EHundiEditController::class, 'ehundi_edit', 'as' => 'ehundi_edit']);
+    Route::post('/edit/{id}', [EHundiEditController::class, 'ehundi_edit', 'as' => 'ehundi_edit']);
     Route::get('/display/{id}', [EHundiDisplayController::class, 'ehundi_display', 'as' => 'ehundi_display']);
     Route::delete('/delete/{id}', [EHundiDeleteController::class, 'ehundi_delete', 'as' => 'ehundi_delete']);
     Route::get('/paginate', [EHundiPaginateController::class, 'ehundi_paginate', 'as' => 'ehundi_paginate']);
@@ -174,7 +174,7 @@ Route::prefix('/e-hundi')->group(function () {
 
 Route::prefix('/testimonial')->group(function () {
     Route::post('/create', [TestimonialCreateController::class, 'testimonial_create', 'as' => 'testimonial_create']);
-    Route::put('/edit/{id}', [TestimonialEditController::class, 'testimonial_edit', 'as' => 'testimonial_edit']);
+    Route::post('/edit/{id}', [TestimonialEditController::class, 'testimonial_edit', 'as' => 'testimonial_edit']);
     Route::get('/display/{id}', [TestimonialDisplayController::class, 'testimonial_display', 'as' => 'testimonial_display']);
     Route::delete('/delete/{id}', [TestimonialDeleteController::class, 'testimonial_delete', 'as' => 'testimonial_delete']);
     Route::get('/paginate', [TestimonialPaginateController::class, 'testimonial_paginate', 'as' => 'testimonial_paginate']);
@@ -222,14 +222,14 @@ Route::prefix('/gallery-audio')->group(function () {
 
 Route::prefix('/gallery-video')->group(function () {
     Route::post('/create', [GalleryVideoCreateController::class, 'gallery_video_create', 'as' => 'gallery_video_create']);
-    Route::put('/edit/{id}', [GalleryVideoEditController::class, 'gallery_video_edit', 'as' => 'gallery_video_edit']);
+    Route::post('/edit/{id}', [GalleryVideoEditController::class, 'gallery_video_edit', 'as' => 'gallery_video_edit']);
     Route::get('/display/{id}', [GalleryVideoDisplayController::class, 'gallery_video_display', 'as' => 'gallery_video_display']);
     Route::delete('/delete/{id}', [GalleryVideoDeleteController::class, 'gallery_video_delete', 'as' => 'gallery_video_delete']);
     Route::get('/paginate', [GalleryVideoPaginateController::class, 'gallery_video_paginate', 'as' => 'gallery_video_paginate']);
 });
 
 Route::prefix('/banner-video')->group(function () {
-    Route::put('/edit', [BannerVideoEditController::class, 'banner_video_edit', 'as' => 'banner_video_edit']);
+    Route::post('/edit', [BannerVideoEditController::class, 'banner_video_edit', 'as' => 'banner_video_edit']);
     Route::get('/display', [BannerVideoDisplayController::class, 'banner_video_display', 'as' => 'banner_video_display']);
 });
 

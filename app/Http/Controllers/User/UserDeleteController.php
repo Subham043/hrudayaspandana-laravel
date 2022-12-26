@@ -17,8 +17,7 @@ class UserDeleteController extends Controller
     }
     
     public function user_delete($id){
-        $decryptedId = Crypt::decryptString($id);
-        $user = User::findOrFail($decryptedId);
+        $user = User::findOrFail($id);
 
         $user->delete();
 
