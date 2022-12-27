@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\ResendOTPController;
 use App\Http\Controllers\Auth\VerifyUserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ProfileUpdateController;
+use App\Http\Controllers\Auth\PasswordUpdateController;
 use App\Http\Controllers\Contact\ContactPaginateController;
 use App\Http\Controllers\Contact\ContactCreateController;
 use App\Http\Controllers\Contact\ContactEditController;
@@ -83,6 +85,11 @@ use App\Http\Controllers\GalleryVideo\GalleryVideoDeleteController;
 use App\Http\Controllers\GalleryVideo\GalleryVideoDisplayController;
 use App\Http\Controllers\BannerVideo\BannerVideoEditController;
 use App\Http\Controllers\BannerVideo\BannerVideoDisplayController;
+use App\Http\Controllers\Event\EventPaginateController;
+use App\Http\Controllers\Event\EventCreateController;
+use App\Http\Controllers\Event\EventEditController;
+use App\Http\Controllers\Event\EventDeleteController;
+use App\Http\Controllers\Event\EventDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +111,8 @@ Route::prefix('/auth')->group(function () {
     Route::post('/forgot-password', [ForgotPasswordController::class, 'forgot_password', 'as' => 'forgot_password']);
     Route::get('/refresh', [RefreshController::class, 'refresh', 'as' => 'refresh']);
     Route::get('/profile', [ProfileController::class, 'profile', 'as' => 'profile']);
+    Route::post('/profile-update', [ProfileUpdateController::class, 'profile_update', 'as' => 'profile_update']);
+    Route::post('/password-update', [PasswordUpdateController::class, 'password_update', 'as' => 'password_update']);
     Route::get('/logout', [LogoutController::class, 'logout', 'as' => 'logout']);
     Route::get('/resend-otp/{user_id}', [ResendOTPController::class, 'send_otp', 'as' => 'send_otp']);
     Route::post('/verify-user/{user_id}', [VerifyUserController::class, 'verify_user', 'as' => 'verify_user']);
@@ -146,6 +155,14 @@ Route::prefix('/crossword')->group(function () {
     Route::get('/display/{id}', [CrosswordDisplayController::class, 'crossword_display', 'as' => 'crossword_display']);
     Route::delete('/delete/{id}', [CrosswordDeleteController::class, 'crossword_delete', 'as' => 'crossword_delete']);
     Route::get('/paginate', [CrosswordPaginateController::class, 'crossword_paginate', 'as' => 'crossword_paginate']);
+});
+
+Route::prefix('/event')->group(function () {
+    Route::post('/create', [EventCreateController::class, 'event_create', 'as' => 'event_create']);
+    Route::post('/edit/{id}', [EventEditController::class, 'event_edit', 'as' => 'event_edit']);
+    Route::get('/display/{id}', [EventDisplayController::class, 'event_display', 'as' => 'event_display']);
+    Route::delete('/delete/{id}', [EventDeleteController::class, 'event_delete', 'as' => 'event_delete']);
+    Route::get('/paginate', [EventPaginateController::class, 'event_paginate', 'as' => 'event_paginate']);
 });
 
 Route::prefix('/email')->group(function () {

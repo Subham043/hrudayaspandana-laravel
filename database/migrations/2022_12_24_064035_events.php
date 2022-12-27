@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('name');
             $table->text('sdate');
             $table->text('edate');
-            $table->text('stime');
-            $table->text('etime');
+            $table->text('stime')->nullable();
+            $table->text('etime')->nullable();
             $table->text('description1')->nullable();
             $table->text('description2')->nullable();
             $table->text('description3')->nullable();
