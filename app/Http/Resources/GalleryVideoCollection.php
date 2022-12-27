@@ -15,7 +15,7 @@ class GalleryVideoCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'gallery_video_id' => $this->id,
+            'id' => $this->id,
             'video' => $this->video,
             'category' => $this->category,
             'created_at' => $this->created_at,

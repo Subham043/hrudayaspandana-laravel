@@ -15,7 +15,7 @@ class CrosswordCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'crossword_id' => $this->id,
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'image' => asset('storage/upload/crossword/'.$this->image),

@@ -15,7 +15,7 @@ class BannerCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'banner_id' => $this->id,
+            'id' => $this->id,
             'quote' => $this->quote,
             'image' => asset('storage/upload/banner/'.$this->image),
             'created_at' => $this->created_at,

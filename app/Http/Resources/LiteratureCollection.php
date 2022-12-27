@@ -15,7 +15,7 @@ class LiteratureCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'literature_id' => $this->id,
+            'id' => $this->id,
             'name' => $this->name,
             'image' => asset('storage/upload/literature/'.$this->image),
             'is_pdf' => $this->is_pdf,

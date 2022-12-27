@@ -15,7 +15,7 @@ class MediaCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'media_id' => $this->id,
+            'id' => $this->id,
             'type' => $this->type,
             'media' => $this->type==1 ? asset('storage/upload/media/'.$this->media) : $this->media,
             'created_at' => $this->created_at,

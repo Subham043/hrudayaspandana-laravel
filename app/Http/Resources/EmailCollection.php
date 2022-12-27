@@ -15,7 +15,7 @@ class EmailCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'email_id' => $this->id,
+            'id' => $this->id,
             'subject' => $this->subject,
             'message' => $this->message,
             'attachment' => $this->attachment,

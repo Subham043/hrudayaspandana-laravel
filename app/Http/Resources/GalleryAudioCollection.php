@@ -15,7 +15,7 @@ class GalleryAudioCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'gallery_audio_id' => $this->id,
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'category' => $this->category,

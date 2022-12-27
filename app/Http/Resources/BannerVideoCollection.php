@@ -15,7 +15,7 @@ class BannerVideoCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'banner_video_id' => $this->id,
+            'id' => $this->id,
             'video' => $this->video,
             'image' => asset('storage/upload/banner_video/'.$this->image),
             'created_at' => $this->created_at,

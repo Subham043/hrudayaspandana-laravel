@@ -15,7 +15,7 @@ class TestimonialCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'testimonial_id' => $this->id,
+            'id' => $this->id,
             'testimonial' => $this->testimonial,
             'type' => $this->type,
             'created_at' => $this->created_at,

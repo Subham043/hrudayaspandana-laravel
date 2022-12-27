@@ -15,7 +15,7 @@ class EventCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'event_id' => $this->id,
+            'id' => $this->id,
             'name' => $this->name,
             'sdate' => $this->sdate,
             'edate' => $this->edate,
