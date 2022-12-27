@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GalleryImage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GalleryImage;
+use App\Http\Resources\GalleryImageCollection;
 
 class GalleryImagePaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class GalleryImagePaginateController extends Controller
 
         $gallery_image = GalleryImage::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'GalleryImage received successfully',
-            'data' => $gallery_image,
-        ], 201);
+        return GalleryImageCollection::collection($gallery_image);
     }
 }

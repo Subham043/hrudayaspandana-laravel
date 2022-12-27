@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Email;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Email;
+use App\Http\Resources\EmailCollection;
 
 class EmailPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class EmailPaginateController extends Controller
 
         $email = Email::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Email received successfully',
-            'data' => $email,
-        ], 201);
+        return EmailCollection::collection($email);
     }
 }

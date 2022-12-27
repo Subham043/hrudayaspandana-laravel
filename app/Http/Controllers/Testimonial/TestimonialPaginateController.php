@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Testimonial;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
+use App\Http\Resources\TestimonialCollection;
 
 class TestimonialPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class TestimonialPaginateController extends Controller
 
         $testimonial = Testimonial::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Testimonial received successfully',
-            'data' => $testimonial,
-        ], 201);
+        return TestimonialCollection::collection($testimonial);
     }
 }

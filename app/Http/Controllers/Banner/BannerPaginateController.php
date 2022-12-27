@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Banner;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use App\Http\Resources\BannerCollection;
 
 class BannerPaginateController extends Controller
 {
@@ -16,11 +17,7 @@ class BannerPaginateController extends Controller
     public function banner_paginate(Request $request){
 
         $banner = Banner::orderBy('id', 'DESC')->paginate(10);
+        return BannerCollection::collection($banner);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Banner received successfully',
-            'data' => $banner,
-        ], 201);
     }
 }

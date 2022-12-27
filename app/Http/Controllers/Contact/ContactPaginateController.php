@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
+use App\Http\Resources\EnquiryCollection;
 
 class ContactPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class ContactPaginateController extends Controller
 
         $enquiry = Enquiry::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Enquiry received successfully',
-            'data' => $enquiry,
-        ], 201);
+        return EnquiryCollection::collection($enquiry);
     }
 }

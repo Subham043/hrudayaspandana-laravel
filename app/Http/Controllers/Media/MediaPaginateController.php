@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Media;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Media;
+use App\Http\Resources\MediaCollection;
 
 class MediaPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class MediaPaginateController extends Controller
 
         $media = Media::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Media received successfully',
-            'data' => $media,
-        ], 200);
+        return MediaCollection::collection($media);
     }
 }

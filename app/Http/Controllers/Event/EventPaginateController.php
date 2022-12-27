@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Http\Resources\EventCollection;
 
 class EventPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class EventPaginateController extends Controller
 
         $event = Event::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Event received successfully',
-            'data' => $event,
-        ], 201);
+        return EventCollection::collection($event);
     }
 }

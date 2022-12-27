@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Resources\UserCollection;
 
 class UserPaginateController extends Controller
 {
@@ -16,11 +17,6 @@ class UserPaginateController extends Controller
     public function user_paginate(Request $request){
 
         $user = User::orderBy('id', 'DESC')->paginate(10);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User received successfully',
-            'data' => $user,
-        ], 201);
+        return UserCollection::collection($user);
     }
 }

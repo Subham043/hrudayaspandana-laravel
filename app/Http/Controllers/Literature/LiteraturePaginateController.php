@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Literature;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Literature;
+use App\Http\Resources\LiteratureCollection;
 
 class LiteraturePaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class LiteraturePaginateController extends Controller
 
         $literature = Literature::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Literature received successfully',
-            'data' => $literature,
-        ], 201);
+        return LiteratureCollection::collection($literature);
     }
 }

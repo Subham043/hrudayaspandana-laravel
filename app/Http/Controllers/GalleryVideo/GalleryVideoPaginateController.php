@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GalleryVideo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GalleryVideo;
+use App\Http\Resources\GalleryVideoCollection;
 
 class GalleryVideoPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class GalleryVideoPaginateController extends Controller
 
         $gallery_video = GalleryVideo::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'GalleryVideo received successfully',
-            'data' => $gallery_video,
-        ], 200);
+        return GalleryVideoCollection::collection($gallery_video);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Subscription;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
+use App\Http\Resources\SubscriptionCollection;
 
 class SubscriptionPaginateController extends Controller
 {
@@ -17,10 +18,6 @@ class SubscriptionPaginateController extends Controller
 
         $subscription = Subscription::orderBy('id', 'DESC')->paginate(10);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Subscription received successfully',
-            'data' => $subscription,
-        ], 201);
+        return SubscriptionCollection::collection($subscription);
     }
 }
