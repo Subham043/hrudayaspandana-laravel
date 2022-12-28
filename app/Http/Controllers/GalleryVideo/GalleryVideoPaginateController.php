@@ -9,10 +9,6 @@ use App\Http\Resources\GalleryVideoCollection;
 
 class GalleryVideoPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_video_paginate(Request $request){
 

@@ -9,10 +9,6 @@ use App\Http\Resources\BannerVideoCollection;
 
 class BannerVideoDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function banner_video_display(){
         $banner_video = BannerVideo::findOrFail(1);

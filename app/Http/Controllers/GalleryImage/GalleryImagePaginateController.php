@@ -9,14 +9,42 @@ use App\Http\Resources\GalleryImageCollection;
 
 class GalleryImagePaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_image_paginate(Request $request){
 
-        $gallery_image = GalleryImage::orderBy('id', 'DESC')->paginate(10);
+        $gallery_image = GalleryImage::orderBy('id', 'DESC');
+        
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $search = $request->input('search');
+            $gallery_image = $gallery_image->where(function($q) use($search)  {
+                $q->where('title', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($request->has('filter')) {
+            $filter = $request->input('filter');
+            switch ($filter) {
+                case 'Madhava Seva':
+                    # code...
+                    $gallery_image = $gallery_image->where(function($q) use($filter)  {
+                        $q->where('category', $filter);
+                    });
+                    break;
+                case 'Manava Seva':
+                    # code...
+                    $gallery_image = $gallery_image->where(function($q) use($filter)  {
+                        $q->where('category', $filter);
+                    });
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        $gallery_image = $gallery_image->paginate(10);
 
         return GalleryImageCollection::collection($gallery_image);
     }

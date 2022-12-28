@@ -70,6 +70,7 @@ use App\Http\Controllers\User\UserStatusController;
 use App\Http\Controllers\User\UserDeleteController;
 use App\Http\Controllers\User\UserDisplayController;
 use App\Http\Controllers\GalleryImage\GalleryImagePaginateController;
+use App\Http\Controllers\GalleryImage\GalleryImageRandomController;
 use App\Http\Controllers\GalleryImage\GalleryImageCreateController;
 use App\Http\Controllers\GalleryImage\GalleryImageEditController;
 use App\Http\Controllers\GalleryImage\GalleryImageDeleteController;
@@ -229,6 +230,7 @@ Route::prefix('/gallery-image')->group(function () {
     Route::get('/display/{id}', [GalleryImageDisplayController::class, 'gallery_image_display', 'as' => 'gallery_image_display']);
     Route::delete('/delete/{id}', [GalleryImageDeleteController::class, 'gallery_image_delete', 'as' => 'gallery_image_delete']);
     Route::get('/paginate', [GalleryImagePaginateController::class, 'gallery_image_paginate', 'as' => 'gallery_image_paginate']);
+    Route::get('/random', [GalleryImageRandomController::class, 'gallery_image_random', 'as' => 'gallery_image_random']);
 });
 
 Route::prefix('/gallery-audio')->group(function () {

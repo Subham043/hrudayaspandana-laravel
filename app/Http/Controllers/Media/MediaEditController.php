@@ -28,7 +28,7 @@ class MediaEditController extends Controller
             }
 
             $request->media->storeAs('public/upload/media',$media_file);
-        }elseif($request->file){
+        }elseif(!empty($request->media)){
             $media_file = $request->media;
         }else{
             $media_file = $media->media;
