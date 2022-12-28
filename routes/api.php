@@ -53,6 +53,7 @@ use App\Http\Controllers\Testimonial\TestimonialCreateController;
 use App\Http\Controllers\Testimonial\TestimonialEditController;
 use App\Http\Controllers\Testimonial\TestimonialDeleteController;
 use App\Http\Controllers\Testimonial\TestimonialDisplayController;
+use App\Http\Controllers\Testimonial\TestimonialFilterController;
 use App\Http\Controllers\Media\MediaPaginateController;
 use App\Http\Controllers\Media\MediaCreateController;
 use App\Http\Controllers\Media\MediaEditController;
@@ -197,6 +198,7 @@ Route::prefix('/testimonial')->group(function () {
     Route::get('/display/{id}', [TestimonialDisplayController::class, 'testimonial_display', 'as' => 'testimonial_display']);
     Route::delete('/delete/{id}', [TestimonialDeleteController::class, 'testimonial_delete', 'as' => 'testimonial_delete']);
     Route::get('/paginate', [TestimonialPaginateController::class, 'testimonial_paginate', 'as' => 'testimonial_paginate']);
+    Route::get('/filter', [TestimonialFilterController::class, 'testimonial_filter', 'as' => 'testimonial_filter']);
 });
 
 Route::prefix('/media')->group(function () {
