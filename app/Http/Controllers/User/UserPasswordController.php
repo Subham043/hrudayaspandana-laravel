@@ -18,7 +18,8 @@ class UserPasswordController extends Controller
     }
 
     public function user_password(Request $request, $id){
-        $user = User::findOrFail($id);
+        $decryptedId = Crypt::decryptString($id);
+        $user = User::findOrFail($decryptedId);
 
         $request->validate([
             'password' => 'required|string|min:6',

@@ -17,7 +17,8 @@ class UserDisplayController extends Controller
     }
     
     public function user_display($id){
-        $user = User::findOrFail($id);
+        $decryptedId = Crypt::decryptString($id);
+        $user = User::findOrFail($decryptedId);
 
         return response()->json([
             'status' => 'success',

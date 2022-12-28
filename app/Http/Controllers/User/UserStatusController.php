@@ -17,7 +17,8 @@ class UserStatusController extends Controller
     }
 
     public function user_status($id){
-        $user = User::findOrFail($id);
+        $decryptedId = Crypt::decryptString($id);
+        $user = User::findOrFail($decryptedId);
         $user->status = $user->status===1 ? 2 : 1;
         $user->save();
 
