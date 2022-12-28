@@ -63,6 +63,7 @@ use App\Http\Controllers\Banner\BannerCreateController;
 use App\Http\Controllers\Banner\BannerEditController;
 use App\Http\Controllers\Banner\BannerDeleteController;
 use App\Http\Controllers\Banner\BannerDisplayController;
+use App\Http\Controllers\Banner\BannerShuffleController;
 use App\Http\Controllers\User\UserPaginateController;
 use App\Http\Controllers\User\UserPasswordController;
 use App\Http\Controllers\User\UserStatusController;
@@ -211,6 +212,7 @@ Route::prefix('/banner')->group(function () {
     Route::get('/display/{id}', [BannerDisplayController::class, 'banner_display', 'as' => 'banner_display']);
     Route::delete('/delete/{id}', [BannerDeleteController::class, 'banner_delete', 'as' => 'banner_delete']);
     Route::get('/paginate', [BannerPaginateController::class, 'banner_paginate', 'as' => 'banner_paginate']);
+    Route::get('/random', [BannerShuffleController::class, 'banner_random', 'as' => 'banner_random']);
 });
 
 Route::prefix('/user')->group(function () {
