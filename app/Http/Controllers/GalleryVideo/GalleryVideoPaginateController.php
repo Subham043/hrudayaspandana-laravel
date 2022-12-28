@@ -12,7 +12,33 @@ class GalleryVideoPaginateController extends Controller
     
     public function gallery_video_paginate(Request $request){
 
-        $gallery_video = GalleryVideo::orderBy('id', 'DESC')->paginate(10);
+        $gallery_video = GalleryVideo::orderBy('id', 'DESC');
+
+        if ($request->has('filter')) {
+            $filter = $request->input('filter');
+            switch ($filter) {
+                case 'Madhava Seva':
+                    # code...
+                    $filter="madhava-seva";
+                    $gallery_video = $gallery_video->where(function($q) use($filter)  {
+                        $q->where('category', $filter);
+                    });
+                    break;
+                case 'Manava Seva':
+                    # code...
+                    $filter="manava-seva";
+                    $gallery_video = $gallery_video->where(function($q) use($filter)  {
+                        $q->where('category', $filter);
+                    });
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        $gallery_video = $gallery_video->paginate(10);
 
         return GalleryVideoCollection::collection($gallery_video);
     }
