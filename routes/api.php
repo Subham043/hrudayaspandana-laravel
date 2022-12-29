@@ -53,6 +53,7 @@ use App\Http\Controllers\Donation\DonationCreateController;
 use App\Http\Controllers\Donation\DonationEditController;
 use App\Http\Controllers\Donation\DonationDeleteController;
 use App\Http\Controllers\Donation\DonationDisplayController;
+use App\Http\Controllers\Donation\DonationVerifyController;
 use App\Http\Controllers\Testimonial\TestimonialPaginateController;
 use App\Http\Controllers\Testimonial\TestimonialCreateController;
 use App\Http\Controllers\Testimonial\TestimonialEditController;
@@ -203,6 +204,7 @@ Route::prefix('/donation')->group(function () {
     Route::group(['middleware' => 'throttle:3,1'], function () {
         Route::post('/create', [DonationCreateController::class, 'donation_create', 'as' => 'donation_create']);
     });
+    Route::post('/verify-payment', [DonationVerifyController::class, 'donation_verify', 'as' => 'donation_verify']);
     Route::post('/edit/{id}', [DonationEditController::class, 'donation_edit', 'as' => 'donation_edit']);
     Route::get('/display/{id}', [DonationDisplayController::class, 'donation_display', 'as' => 'donation_display']);
     Route::delete('/delete/{id}', [DonationDeleteController::class, 'donation_delete', 'as' => 'donation_delete']);

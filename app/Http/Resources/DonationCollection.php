@@ -25,6 +25,9 @@ class DonationCollection extends JsonResource
             'amount' => $this->amount,
             'pan' => $this->pan,
             'trust' => $this->trust,
+            'receipt' => $this->receipt,
+            'order_id' => $this->order_id,
+            'payment_id' => $this->payment_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donation;
 use App\Http\Resources\DonationCollection;
+use Razorpay\Api\Api;
+use Uuid;
 
 class DonationCreateController extends Controller
 {
@@ -21,6 +23,18 @@ class DonationCreateController extends Controller
             'trust' => 'required|integer',
         ]);
 
+        $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+        $receipt = Uuid::generate(4)->string;
+        $orderData = [
+            'receipt'         => $receipt,
+            'amount'          => $request->amount*100, // 39900 rupees in paise
+            'currency'        => 'INR',
+            'partial_payment' => false,
+        ];
+        
+        $razorpayOrder = $api->order->create($orderData);
+        $razorpayOrderId = $razorpayOrder['id'];
+
         $donation = Donation::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -30,8 +44,11 @@ class DonationCreateController extends Controller
             'state' => $request->state,
             'amount' => $request->amount,
             'pan' => $request->pan,
+            'receipt' => $receipt,
+            'order_id' => $razorpayOrderId,
             'trust' => $request->trust,
         ]);
+
 
         return response()->json([
             'status' => 'success',

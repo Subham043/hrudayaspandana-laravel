@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "php-open-source-saver/jwt-auth": "^2.0",
+        "razorpay/razorpay": "^2.8",
         "webpatser/laravel-uuid": "^4.0"
     },
     "require-dev": {
