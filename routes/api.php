@@ -48,6 +48,11 @@ use App\Http\Controllers\EHundi\EHundiCreateController;
 use App\Http\Controllers\EHundi\EHundiEditController;
 use App\Http\Controllers\EHundi\EHundiDeleteController;
 use App\Http\Controllers\EHundi\EHundiDisplayController;
+use App\Http\Controllers\Donation\DonationPaginateController;
+use App\Http\Controllers\Donation\DonationCreateController;
+use App\Http\Controllers\Donation\DonationEditController;
+use App\Http\Controllers\Donation\DonationDeleteController;
+use App\Http\Controllers\Donation\DonationDisplayController;
 use App\Http\Controllers\Testimonial\TestimonialPaginateController;
 use App\Http\Controllers\Testimonial\TestimonialCreateController;
 use App\Http\Controllers\Testimonial\TestimonialEditController;
@@ -185,11 +190,23 @@ Route::prefix('/literature')->group(function () {
 });
 
 Route::prefix('/e-hundi')->group(function () {
-    Route::post('/create', [EHundiCreateController::class, 'ehundi_create', 'as' => 'ehundi_create']);
+    Route::group(['middleware' => 'throttle:3,1'], function () {
+        Route::post('/create', [EHundiCreateController::class, 'ehundi_create', 'as' => 'ehundi_create']);
+    });
     Route::post('/edit/{id}', [EHundiEditController::class, 'ehundi_edit', 'as' => 'ehundi_edit']);
     Route::get('/display/{id}', [EHundiDisplayController::class, 'ehundi_display', 'as' => 'ehundi_display']);
     Route::delete('/delete/{id}', [EHundiDeleteController::class, 'ehundi_delete', 'as' => 'ehundi_delete']);
     Route::get('/paginate', [EHundiPaginateController::class, 'ehundi_paginate', 'as' => 'ehundi_paginate']);
+});
+
+Route::prefix('/donation')->group(function () {
+    Route::group(['middleware' => 'throttle:3,1'], function () {
+        Route::post('/create', [DonationCreateController::class, 'donation_create', 'as' => 'donation_create']);
+    });
+    Route::post('/edit/{id}', [DonationEditController::class, 'donation_edit', 'as' => 'donation_edit']);
+    Route::get('/display/{id}', [DonationDisplayController::class, 'donation_display', 'as' => 'donation_display']);
+    Route::delete('/delete/{id}', [DonationDeleteController::class, 'donation_delete', 'as' => 'donation_delete']);
+    Route::get('/paginate', [DonationPaginateController::class, 'donation_paginate', 'as' => 'donation_paginate']);
 });
 
 Route::prefix('/testimonial')->group(function () {
