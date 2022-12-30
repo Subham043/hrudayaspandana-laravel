@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Http\Resources\EnquiryCollection;
+use App\Jobs\SendEnquiryEmailJob;
 
 class ContactCreateController extends Controller
 {
@@ -25,6 +26,8 @@ class ContactCreateController extends Controller
             'phone' => $request->phone,
             'message' => $request->message,
         ]);
+
+        dispatch(new SendEnquiryEmailJob($enquiry));
 
         return response()->json([
             'status' => 'success',

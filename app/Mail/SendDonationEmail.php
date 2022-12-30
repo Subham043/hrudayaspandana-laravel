@@ -10,21 +10,19 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
 
-class SendForgotPasswordEmail extends Mailable
+class SendDonationEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $name;
-    public $otp;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $otp)
+    public function __construct($data)
     {
-        $this->name = $name;
-        $this->otp = $otp;
+        $this->data = $data;
     }
 
     /**
@@ -36,7 +34,7 @@ class SendForgotPasswordEmail extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_FROM_ADDRESS'), 'Hrudayaspandana'),
-            subject: 'Reset Password',
+            subject: 'Donation Information',
         );
     }
 
@@ -48,10 +46,9 @@ class SendForgotPasswordEmail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.forgot_password',
+            view: 'email.donation',
             with: [
-                'name' => $this->name,
-                'otp' => $this->otp,
+                'data' => $this->data,
             ],
         );
     }

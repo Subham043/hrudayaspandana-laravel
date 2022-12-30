@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EHundi;
 use App\Http\Resources\EHundiCollection;
+use App\Jobs\SendEhundiEmailJob;
 
 class EHundiCreateController extends Controller
 {
@@ -23,6 +24,8 @@ class EHundiCreateController extends Controller
             'trust' => $request->trust,
             'pan' => $request->pan,
         ]);
+
+        dispatch(new SendEhundiEmailJob($ehundi));
 
         return response()->json([
             'status' => 'success',

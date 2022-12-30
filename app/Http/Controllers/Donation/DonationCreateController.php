@@ -40,6 +40,8 @@ class DonationCreateController extends Controller
             'trust' => $request->trust,
         ]);
 
+        $donation = Donation::findOrFail($donation->id);
+
 
         return response()->json([
             'status' => 'success',

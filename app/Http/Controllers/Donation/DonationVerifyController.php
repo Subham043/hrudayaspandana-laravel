@@ -8,6 +8,7 @@ use App\Models\Donation;
 use App\Http\Resources\DonationCollection;
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors\SignatureVerificationError;
+use App\Jobs\SendDonationEmailJob;
 
 class DonationVerifyController extends Controller
 {
@@ -46,6 +47,10 @@ class DonationVerifyController extends Controller
         $donation->update([
             'payment_id' => $request->razorpay_payment_id,
         ]);
+
+        $donation = Donation::where('order_id',$request->razorpay_order_id)->firstOrFail();
+
+        dispatch(new SendDonationEmailJob($donation));
 
         return response()->json([
             'status' => 'success',

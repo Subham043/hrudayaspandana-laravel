@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
 use App\Http\Resources\VolunteerCollection;
+use App\Jobs\SendVolunteerEmailJob;
 
 class VolunteerCreateController extends Controller
 {
@@ -29,6 +30,8 @@ class VolunteerCreateController extends Controller
             'address' => $request->address,
             'interest' => $request->interest,
         ]);
+
+        dispatch(new SendVolunteerEmailJob($volunteer));
 
         return response()->json([
             'status' => 'success',
