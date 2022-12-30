@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
+use App\Jobs\SendForgotPasswordEmailJob;
 
 class ForgotPasswordController extends Controller
 {
@@ -33,6 +34,8 @@ class ForgotPasswordController extends Controller
 
         $user->otp = rand(1000,9999);
         $user->save();
+
+        dispatch(new SendForgotPasswordEmailJob($user));
 
         return response()->json([
             'status' => 'success',

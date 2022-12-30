@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
+use App\Jobs\SendOtpEmailJob;
 
 class ResendOTPController extends Controller
 {
@@ -19,6 +20,8 @@ class ResendOTPController extends Controller
         $user = User::findOrFail($decryptedId);
         $user->otp = rand(1000,9999);
         $user->save();
+
+        dispatch(new SendOtpEmailJob($user));
 
         return response()->json([
             'status' => 'success',

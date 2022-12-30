@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
+use App\Jobs\SendVerificationEmailJob;
 
 class RegisterController extends Controller
 {
@@ -30,6 +31,7 @@ class RegisterController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->firstOrFail();
+        dispatch(new SendVerificationEmailJob($user));
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
