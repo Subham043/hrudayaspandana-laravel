@@ -12,16 +12,7 @@ use Uuid;
 class DonationCreateController extends Controller
 {
     public function donation_create(Request $request){
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|max:10',
-            'city' => 'required|string|min:3',
-            'state' => 'required|string|min:3',
-            'amount' => 'required|integer',
-            'trust' => 'required|integer',
-        ]);
+        $request->validate($this->validation($request));
 
         $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
         $receipt = Uuid::generate(4)->string;
@@ -55,5 +46,22 @@ class DonationCreateController extends Controller
             'message' => 'Donation created successfully',
             'data' => DonationCollection::make($donation),
         ], 201);
+    }
+
+    private function validation(Request $request){
+        $rules = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|string|max:10',
+            'city' => 'required|string|min:3',
+            'state' => 'required|string|min:3',
+            'amount' => 'required|integer',
+            'trust' => 'required|integer',
+        ];
+        if($request->trust==1){
+            $rules['pan'] = 'required|string';
+        }
+        return $rules;
     }
 }

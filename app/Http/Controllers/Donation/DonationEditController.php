@@ -17,16 +17,7 @@ class DonationEditController extends Controller
     public function donation_edit(Request $request, $id){
         $donation = Donation::findOrFail($id);
 
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|max:10',
-            'city' => 'required|string|min:3',
-            'state' => 'required|string|min:3',
-            'amount' => 'required|integer',
-            'trust' => 'required|integer',
-        ]);
+        $request->validate($this->validation($request));
 
         $donation->update([
             'first_name' => $request->first_name,
@@ -45,5 +36,22 @@ class DonationEditController extends Controller
             'message' => 'Donation updated successfully',
             'data' => DonationCollection::make($donation),
         ], 200);
+    }
+
+    private function validation(Request $request){
+        $rules = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|string|max:10',
+            'city' => 'required|string|min:3',
+            'state' => 'required|string|min:3',
+            'amount' => 'required|integer',
+            'trust' => 'required|integer',
+        ];
+        if($request->trust==1){
+            $rules['pan'] = 'required|string';
+        }
+        return $rules;
     }
 }

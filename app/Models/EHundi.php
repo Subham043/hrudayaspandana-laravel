@@ -18,5 +18,6 @@ class EHundi extends Model
         'state',
         'amount',
         'trust',
+        'pan',
     ];
 }

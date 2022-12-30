@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('amount');
+            $table->string('pan')->nullable();
             $table->integer('trust')->default(1);
             $table->timestamps();
         });

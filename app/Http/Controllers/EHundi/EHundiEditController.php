@@ -17,16 +17,7 @@ class EHundiEditController extends Controller
     public function ehundi_edit(Request $request, $id){
         $ehundi = EHundi::findOrFail($id);
 
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|max:10',
-            'city' => 'required|string|min:3',
-            'state' => 'required|string|min:3',
-            'amount' => 'required|integer',
-            'trust' => 'required|integer',
-        ]);
+        $request->validate($this->validation($request));
 
         $ehundi->update([
             'first_name' => $request->first_name,
@@ -37,6 +28,7 @@ class EHundiEditController extends Controller
             'state' => $request->state,
             'amount' => $request->amount,
             'trust' => $request->trust,
+            'pan' => $request->pan,
         ]);
 
         return response()->json([
@@ -44,5 +36,22 @@ class EHundiEditController extends Controller
             'message' => 'EHundi updated successfully',
             'data' => EHundiCollection::make($ehundi),
         ], 200);
+    }
+
+    private function validation(Request $request){
+        $rules = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|string|max:10',
+            'city' => 'required|string|min:3',
+            'state' => 'required|string|min:3',
+            'amount' => 'required|integer',
+            'trust' => 'required|integer',
+        ];
+        if($request->trust==1){
+            $rules['pan'] = 'required|string';
+        }
+        return $rules;
     }
 }

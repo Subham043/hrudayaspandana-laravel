@@ -24,6 +24,7 @@ class EHundiCollection extends JsonResource
             'state' => $this->state,
             'amount' => $this->amount,
             'trust' => $this->trust,
+            'pan' => $this->pan,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
