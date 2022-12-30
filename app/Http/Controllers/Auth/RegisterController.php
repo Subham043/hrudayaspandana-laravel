@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'otp' => rand(1000,9999),
         ]);
 
-        $token = Auth::login($user);
+        $user = User::where('email', $request->email)->firstOrFail();
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
