@@ -6,6 +6,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class EHundiCollection extends JsonResource
 {
+    public function getTrust(){
+        $trust = [
+            1 => "Sai Mayee Trust",
+            2 => "Sri Sai Meru Mathi Trust",
+        ];
+        return $trust[$this->trust];
+    }
+
     /**
      * Transform the resource collection into an array.
      *
@@ -24,6 +32,7 @@ class EHundiCollection extends JsonResource
             'state' => $this->state,
             'amount' => $this->amount,
             'trust' => $this->trust,
+            'trust_name' => $this->getTrust(),
             'pan' => $this->pan,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

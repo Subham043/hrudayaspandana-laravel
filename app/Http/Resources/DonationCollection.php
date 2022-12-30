@@ -6,6 +6,22 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class DonationCollection extends JsonResource
 {
+    public function getTrust(){
+        $trust = [
+            1 => "Sai Mayee Trust",
+            2 => "Sri Sai Meru Mathi Trust",
+        ];
+        return $trust[$this->trust];
+    }
+    
+    public function getStatus(){
+        $status = [
+            0 => "Payment Pending",
+            1 => "Payment Completed",
+        ];
+        return $status[$this->status];
+    }
+
     /**
      * Transform the resource collection into an array.
      *
@@ -25,6 +41,9 @@ class DonationCollection extends JsonResource
             'amount' => $this->amount,
             'pan' => $this->pan,
             'trust' => $this->trust,
+            'trust_name' => $this->getTrust(),
+            'status' => $this->status,
+            'status_name' => $this->getStatus(),
             'receipt' => $this->receipt,
             'order_id' => $this->order_id,
             'payment_id' => $this->payment_id,
