@@ -5,6 +5,7 @@ namespace App\Http\Controllers\EventGalleryVideo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GalleryVideo;
+use App\Models\Event;
 use App\Http\Resources\GalleryVideoCollection;
 
 class EventGalleryVideoPaginateController extends Controller

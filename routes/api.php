@@ -106,6 +106,11 @@ use App\Http\Controllers\EventGalleryImage\EventGalleryImageCreateController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImageEditController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImageDeleteController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImageDisplayController;
+use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoPaginateController;
+use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoCreateController;
+use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoEditController;
+use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoDeleteController;
+use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoDisplayController;
 
 /*
 |--------------------------------------------------------------------------
