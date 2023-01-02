@@ -96,9 +96,16 @@ use App\Http\Controllers\BannerVideo\BannerVideoEditController;
 use App\Http\Controllers\BannerVideo\BannerVideoDisplayController;
 use App\Http\Controllers\Event\EventPaginateController;
 use App\Http\Controllers\Event\EventCreateController;
+use App\Http\Controllers\Event\EventStatusController;
 use App\Http\Controllers\Event\EventEditController;
 use App\Http\Controllers\Event\EventDeleteController;
 use App\Http\Controllers\Event\EventDisplayController;
+use App\Http\Controllers\EventGalleryImage\EventGalleryImagePaginateController;
+use App\Http\Controllers\EventGalleryImage\EventGalleryImageRandomController;
+use App\Http\Controllers\EventGalleryImage\EventGalleryImageCreateController;
+use App\Http\Controllers\EventGalleryImage\EventGalleryImageEditController;
+use App\Http\Controllers\EventGalleryImage\EventGalleryImageDeleteController;
+use App\Http\Controllers\EventGalleryImage\EventGalleryImageDisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,10 +175,29 @@ Route::prefix('/crossword')->group(function () {
 
 Route::prefix('/event')->group(function () {
     Route::post('/create', [EventCreateController::class, 'event_create', 'as' => 'event_create']);
+    Route::get('/status/{id}', [EventStatusController::class, 'event_status', 'as' => 'event_status']);
     Route::post('/edit/{id}', [EventEditController::class, 'event_edit', 'as' => 'event_edit']);
     Route::get('/display/{id}', [EventDisplayController::class, 'event_display', 'as' => 'event_display']);
     Route::delete('/delete/{id}', [EventDeleteController::class, 'event_delete', 'as' => 'event_delete']);
     Route::get('/paginate', [EventPaginateController::class, 'event_paginate', 'as' => 'event_paginate']);
+
+    Route::prefix('/gallery')->group(function () {
+        Route::prefix('/image/{event_id}')->group(function () {
+            Route::post('/create', [EventGalleryImageCreateController::class, 'gallery_image_create', 'as' => 'gallery_image_create']);
+            Route::post('/edit/{id}', [EventGalleryImageEditController::class, 'gallery_image_edit', 'as' => 'gallery_image_edit']);
+            Route::get('/display/{id}', [EventGalleryImageDisplayController::class, 'gallery_image_display', 'as' => 'gallery_image_display']);
+            Route::delete('/delete/{id}', [EventGalleryImageDeleteController::class, 'gallery_image_delete', 'as' => 'gallery_image_delete']);
+            Route::get('/paginate', [EventGalleryImagePaginateController::class, 'gallery_image_paginate', 'as' => 'gallery_image_paginate']);
+            Route::get('/random', [EventGalleryImageRandomController::class, 'gallery_image_random', 'as' => 'gallery_image_random']);
+        });
+        Route::prefix('/video/{event_id}')->group(function () {
+            Route::post('/create', [EventGalleryVideoCreateController::class, 'gallery_video_create', 'as' => 'gallery_video_create']);
+            Route::post('/edit/{id}', [EventGalleryVideoEditController::class, 'gallery_video_edit', 'as' => 'gallery_video_edit']);
+            Route::get('/display/{id}', [EventGalleryVideoDisplayController::class, 'gallery_video_display', 'as' => 'gallery_video_display']);
+            Route::delete('/delete/{id}', [EventGalleryVideoDeleteController::class, 'gallery_video_delete', 'as' => 'gallery_video_delete']);
+            Route::get('/paginate', [EventGalleryVideoPaginateController::class, 'gallery_video_paginate', 'as' => 'gallery_video_paginate']);
+        });
+    });
 });
 
 Route::prefix('/email')->group(function () {
