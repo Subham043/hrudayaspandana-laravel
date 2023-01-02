@@ -23,4 +23,14 @@ class Event extends Model
         'status',
         'user_id',
     ];
+
+    public function EventGalleryImage()
+    {
+        return $this->hasMany('App\Models\GalleryImage', 'event_id');
+    }
+    
+    public function EventGalleryVideo()
+    {
+        return $this->hasMany('App\Models\GalleryVideo', 'event_id');
+    }
 }

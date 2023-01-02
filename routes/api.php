@@ -101,7 +101,6 @@ use App\Http\Controllers\Event\EventEditController;
 use App\Http\Controllers\Event\EventDeleteController;
 use App\Http\Controllers\Event\EventDisplayController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImagePaginateController;
-use App\Http\Controllers\EventGalleryImage\EventGalleryImageRandomController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImageCreateController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImageEditController;
 use App\Http\Controllers\EventGalleryImage\EventGalleryImageDeleteController;
@@ -193,7 +192,6 @@ Route::prefix('/event')->group(function () {
             Route::get('/display/{id}', [EventGalleryImageDisplayController::class, 'gallery_image_display', 'as' => 'gallery_image_display']);
             Route::delete('/delete/{id}', [EventGalleryImageDeleteController::class, 'gallery_image_delete', 'as' => 'gallery_image_delete']);
             Route::get('/paginate', [EventGalleryImagePaginateController::class, 'gallery_image_paginate', 'as' => 'gallery_image_paginate']);
-            Route::get('/random', [EventGalleryImageRandomController::class, 'gallery_image_random', 'as' => 'gallery_image_random']);
         });
         Route::prefix('/video/{event_id}')->group(function () {
             Route::post('/create', [EventGalleryVideoCreateController::class, 'gallery_video_create', 'as' => 'gallery_video_create']);
