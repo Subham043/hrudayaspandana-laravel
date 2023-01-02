@@ -21,6 +21,6 @@ class EmailDisplayController extends Controller
             'status' => 'success',
             'message' => 'Email received successfully',
             'data' => EmailCollection::make($email),
-        ], 201);
+        ], 200);
     }
 }

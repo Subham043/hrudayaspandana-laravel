@@ -38,6 +38,7 @@ use App\Http\Controllers\Email\EmailCreateController;
 use App\Http\Controllers\Email\EmailEditController;
 use App\Http\Controllers\Email\EmailDeleteController;
 use App\Http\Controllers\Email\EmailDisplayController;
+use App\Http\Controllers\Email\EmailSendController;
 use App\Http\Controllers\Literature\LiteraturePaginateController;
 use App\Http\Controllers\Literature\LiteratureCreateController;
 use App\Http\Controllers\Literature\LiteratureEditController;
@@ -207,6 +208,7 @@ Route::prefix('/email')->group(function () {
     Route::post('/create', [EmailCreateController::class, 'email_create', 'as' => 'email_create']);
     Route::post('/edit/{id}', [EmailEditController::class, 'email_edit', 'as' => 'email_edit']);
     Route::get('/display/{id}', [EmailDisplayController::class, 'email_display', 'as' => 'email_display']);
+    Route::get('/send/{id}', [EmailSendController::class, 'email_send', 'as' => 'email_send']);
     Route::delete('/delete/{id}', [EmailDeleteController::class, 'email_delete', 'as' => 'email_delete']);
     Route::get('/paginate', [EmailPaginateController::class, 'email_paginate', 'as' => 'email_paginate']);
 });
