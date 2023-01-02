@@ -25,6 +25,7 @@ class EventGalleryVideoCreateController extends Controller
 
         $gallery_video = GalleryVideo::create([
             'video' => $request->video,
+            'category' => $event->category,
             'event_id' => $event_id,
             'user_id' => Auth::user()->id,
         ]);
