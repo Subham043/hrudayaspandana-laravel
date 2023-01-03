@@ -28,6 +28,7 @@ use App\Http\Controllers\Subscription\SubscriptionCreateController;
 use App\Http\Controllers\Subscription\SubscriptionEditController;
 use App\Http\Controllers\Subscription\SubscriptionDeleteController;
 use App\Http\Controllers\Subscription\SubscriptionDisplayController;
+use App\Http\Controllers\Subscription\SubscriptionExcelController;
 use App\Http\Controllers\Crossword\CrosswordPaginateController;
 use App\Http\Controllers\Crossword\CrosswordCreateController;
 use App\Http\Controllers\Crossword\CrosswordEditController;
@@ -55,6 +56,7 @@ use App\Http\Controllers\Donation\DonationEditController;
 use App\Http\Controllers\Donation\DonationDeleteController;
 use App\Http\Controllers\Donation\DonationDisplayController;
 use App\Http\Controllers\Donation\DonationVerifyController;
+use App\Http\Controllers\Donation\DonationWebhookController;
 use App\Http\Controllers\Testimonial\TestimonialPaginateController;
 use App\Http\Controllers\Testimonial\TestimonialCreateController;
 use App\Http\Controllers\Testimonial\TestimonialEditController;
@@ -170,6 +172,7 @@ Route::prefix('/subscription')->group(function () {
     Route::get('/display/{id}', [SubscriptionDisplayController::class, 'subscription_display', 'as' => 'subscription_display']);
     Route::delete('/delete/{id}', [SubscriptionDeleteController::class, 'subscription_delete', 'as' => 'subscription_delete']);
     Route::get('/paginate', [SubscriptionPaginateController::class, 'subscription_paginate', 'as' => 'subscription_paginate']);
+    Route::get('/excel', [SubscriptionExcelController::class, 'subscription_excel', 'as' => 'subscription_excel']);
 });
 
 Route::prefix('/crossword')->group(function () {
@@ -238,6 +241,7 @@ Route::prefix('/donation')->group(function () {
         Route::post('/create', [DonationCreateController::class, 'donation_create', 'as' => 'donation_create']);
     });
     Route::post('/verify-payment', [DonationVerifyController::class, 'donation_verify', 'as' => 'donation_verify']);
+    Route::post('webhook', [DonationWebhookController::class, 'donation_webhook', 'as' => 'donation_webhook']);
     Route::post('/edit/{id}', [DonationEditController::class, 'donation_edit', 'as' => 'donation_edit']);
     Route::get('/display/{id}', [DonationDisplayController::class, 'donation_display', 'as' => 'donation_display']);
     Route::delete('/delete/{id}', [DonationDeleteController::class, 'donation_delete', 'as' => 'donation_delete']);

@@ -46,6 +46,7 @@ class DonationVerifyController extends Controller
 
         $donation->update([
             'payment_id' => $request->razorpay_payment_id,
+            'status' => 1,
         ]);
 
         $donation = Donation::where('order_id',$request->razorpay_order_id)->firstOrFail();

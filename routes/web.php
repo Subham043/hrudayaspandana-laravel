@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\UserExcelDownloadController;
+use App\Http\Controllers\Excel\ExcelDownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +16,6 @@ use App\Http\Controllers\User\UserExcelDownloadController;
 
 Route::group(['middleware' => ['file.response']], function () {
 
-Route::get('user/excel/download/{file_name}', [UserExcelDownloadController::class, 'user_excel_download', 'as' => 'user_excel_download']);
+Route::get('excel/download/{file_name}', [ExcelDownloadController::class, 'excel_download', 'as' => 'excel_download']);
 
 });
