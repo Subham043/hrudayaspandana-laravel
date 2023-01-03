@@ -77,6 +77,7 @@ use App\Http\Controllers\User\UserPasswordController;
 use App\Http\Controllers\User\UserStatusController;
 use App\Http\Controllers\User\UserDeleteController;
 use App\Http\Controllers\User\UserDisplayController;
+use App\Http\Controllers\User\UserExcelController;
 use App\Http\Controllers\GalleryImage\GalleryImagePaginateController;
 use App\Http\Controllers\GalleryImage\GalleryImageRandomController;
 use App\Http\Controllers\GalleryImage\GalleryImageCreateController;
@@ -111,6 +112,7 @@ use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoCreateController;
 use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoEditController;
 use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoDeleteController;
 use App\Http\Controllers\EventGalleryVideo\EventGalleryVideoDisplayController;
+use App\Http\Controllers\Dashboard\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -272,6 +274,7 @@ Route::prefix('/user')->group(function () {
     Route::post('/password/{id}', [UserPasswordController::class, 'user_password', 'as' => 'user_password']);
     Route::get('/status/{id}', [UserStatusController::class, 'user_status', 'as' => 'user_status']);
     Route::get('/display/{id}', [UserDisplayController::class, 'user_display', 'as' => 'user_display']);
+    Route::get('/excel', [UserExcelController::class, 'user_excel', 'as' => 'user_excel']);
     Route::delete('/delete/{id}', [UserDeleteController::class, 'user_delete', 'as' => 'user_delete']);
     Route::get('/paginate', [UserPaginateController::class, 'user_paginate', 'as' => 'user_paginate']);
 });
@@ -305,5 +308,7 @@ Route::prefix('/banner-video')->group(function () {
     Route::post('/edit', [BannerVideoEditController::class, 'banner_video_edit', 'as' => 'banner_video_edit']);
     Route::get('/display', [BannerVideoDisplayController::class, 'banner_video_display', 'as' => 'banner_video_display']);
 });
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard', 'as' => 'dashboard']);
 
 });

@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 
-    'allowed_origins' => ['http://127.0.0.1:3000', 'http://localhost:3000'],
+    'allowed_origins' => ['http://127.0.0.1:3000', env('MAIN_FRONTEND_ENDPOINT', 'http://localhost:3000'), env('ADMIN_FRONTEND_ENDPOINT', 'http://localhost:62002')],
 
     'allowed_origins_patterns' => [],
 
@@ -35,6 +35,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
