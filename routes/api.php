@@ -18,11 +18,13 @@ use App\Http\Controllers\Contact\ContactCreateController;
 use App\Http\Controllers\Contact\ContactEditController;
 use App\Http\Controllers\Contact\ContactDeleteController;
 use App\Http\Controllers\Contact\ContactDisplayController;
+use App\Http\Controllers\Contact\ContactExcelController;
 use App\Http\Controllers\Volunteer\VolunteerPaginateController;
 use App\Http\Controllers\Volunteer\VolunteerCreateController;
 use App\Http\Controllers\Volunteer\VolunteerEditController;
 use App\Http\Controllers\Volunteer\VolunteerDeleteController;
 use App\Http\Controllers\Volunteer\VolunteerDisplayController;
+use App\Http\Controllers\Volunteer\VolunteerExcelController;
 use App\Http\Controllers\Subscription\SubscriptionPaginateController;
 use App\Http\Controllers\Subscription\SubscriptionCreateController;
 use App\Http\Controllers\Subscription\SubscriptionEditController;
@@ -50,11 +52,13 @@ use App\Http\Controllers\EHundi\EHundiCreateController;
 use App\Http\Controllers\EHundi\EHundiEditController;
 use App\Http\Controllers\EHundi\EHundiDeleteController;
 use App\Http\Controllers\EHundi\EHundiDisplayController;
+use App\Http\Controllers\EHundi\EHundiExcelController;
 use App\Http\Controllers\Donation\DonationPaginateController;
 use App\Http\Controllers\Donation\DonationCreateController;
 use App\Http\Controllers\Donation\DonationEditController;
 use App\Http\Controllers\Donation\DonationDeleteController;
 use App\Http\Controllers\Donation\DonationDisplayController;
+use App\Http\Controllers\Donation\DonationExcelController;
 use App\Http\Controllers\Donation\DonationVerifyController;
 use App\Http\Controllers\Donation\DonationWebhookController;
 use App\Http\Controllers\Testimonial\TestimonialPaginateController;
@@ -152,6 +156,7 @@ Route::prefix('/contact')->group(function () {
     Route::get('/display/{id}', [ContactDisplayController::class, 'contact_display', 'as' => 'contact_display']);
     Route::delete('/delete/{id}', [ContactDeleteController::class, 'contact_delete', 'as' => 'contact_delete']);
     Route::get('/paginate', [ContactPaginateController::class, 'contact_paginate', 'as' => 'contact_paginate']);
+    Route::get('/excel', [ContactExcelController::class, 'contact_excel', 'as' => 'contact_excel']);
 });
 
 Route::prefix('/volunteer')->group(function () {
@@ -162,6 +167,7 @@ Route::prefix('/volunteer')->group(function () {
     Route::get('/display/{id}', [VolunteerDisplayController::class, 'volunteer_display', 'as' => 'volunteer_display']);
     Route::delete('/delete/{id}', [VolunteerDeleteController::class, 'volunteer_delete', 'as' => 'volunteer_delete']);
     Route::get('/paginate', [VolunteerPaginateController::class, 'volunteer_paginate', 'as' => 'volunteer_paginate']);
+    Route::get('/excel', [VolunteerExcelController::class, 'volunteer_excel', 'as' => 'volunteer_excel']);
 });
 
 Route::prefix('/subscription')->group(function () {
@@ -234,6 +240,7 @@ Route::prefix('/e-hundi')->group(function () {
     Route::get('/display/{id}', [EHundiDisplayController::class, 'ehundi_display', 'as' => 'ehundi_display']);
     Route::delete('/delete/{id}', [EHundiDeleteController::class, 'ehundi_delete', 'as' => 'ehundi_delete']);
     Route::get('/paginate', [EHundiPaginateController::class, 'ehundi_paginate', 'as' => 'ehundi_paginate']);
+    Route::get('/excel', [EhundiExcelController::class, 'ehundi_excel', 'as' => 'ehundi_excel']);
 });
 
 Route::prefix('/donation')->group(function () {
@@ -246,6 +253,7 @@ Route::prefix('/donation')->group(function () {
     Route::get('/display/{id}', [DonationDisplayController::class, 'donation_display', 'as' => 'donation_display']);
     Route::delete('/delete/{id}', [DonationDeleteController::class, 'donation_delete', 'as' => 'donation_delete']);
     Route::get('/paginate', [DonationPaginateController::class, 'donation_paginate', 'as' => 'donation_paginate']);
+    Route::get('/excel', [DonationExcelController::class, 'donation_excel', 'as' => 'donation_excel']);
 });
 
 Route::prefix('/testimonial')->group(function () {

@@ -20,25 +20,24 @@ class SubscriptionExport implements FromCollection,WithHeadings,WithMapping
             'Newsletter',
             'Blog',
             'Crossword',
-            'Status',
             'Created_at',
             'Updated_at' 
         ];
     } 
-    public function map($user): array
+    public function map($subscription): array
     {
          return[
-             $user->id,
-             $user->name,
-             $user->email,
-             $user->phone,
-             $user->ebook==1 ? 'Yes' : 'No',
-             $user->event==1 ? 'Yes' : 'No',
-             $user->newsletter==1 ? 'Yes' : 'No',
-             $user->blog==1 ? 'Yes' : 'No',
-             $user->crossword==1 ? 'Yes' : 'No',
-             $user->created_at,
-             $user->updated_at,
+             $subscription->id,
+             $subscription->name,
+             $subscription->email,
+             $subscription->phone,
+             $subscription->ebook==1 ? 'Yes' : 'No',
+             $subscription->event==1 ? 'Yes' : 'No',
+             $subscription->newsletter==1 ? 'Yes' : 'No',
+             $subscription->blog==1 ? 'Yes' : 'No',
+             $subscription->crossword==1 ? 'Yes' : 'No',
+             $subscription->created_at,
+             $subscription->updated_at,
          ];
     }
     public function collection()
