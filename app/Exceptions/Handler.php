@@ -11,6 +11,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Exceptions\UnauthorizedAdminAccessException;
+use App\Exceptions\UserAccessException;
 use Illuminate\Http\Response;
 
 
@@ -98,6 +99,14 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'status' => 'error',
                 'message' => "Oops! You don't have the permission to access this!",
+            ], 403);
+        }
+
+        if ($exception instanceof UserAccessException && $request->wantsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Oops! You have been blocked!",
+                'data' => $exception->showCustomErrorMessage()
             ], 403);
         }
 
