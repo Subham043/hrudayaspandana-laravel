@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
+use App\Exceptions\UserAccessException;
 
 class ProfileUpdateController extends Controller
 {
@@ -14,18 +15,11 @@ class ProfileUpdateController extends Controller
     public function profile_update(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->firstOrFail();
-        if($user->status==0){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Please verify your email address.',
-            ], 400);
+        
+        if($user->status==2 || $user->status==0){
+            throw new UserAccessException($user);
         }
-        if($user->status==2){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Your account has been blocked by admin. Kindly contact us for further details!',
-            ], 400);
-        }
+        
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',

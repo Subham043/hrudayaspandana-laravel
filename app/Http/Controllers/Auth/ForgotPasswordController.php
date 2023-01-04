@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Jobs\SendForgotPasswordEmailJob;
+use App\Exceptions\UserAccessException;
 
 class ForgotPasswordController extends Controller
 {
@@ -19,17 +20,8 @@ class ForgotPasswordController extends Controller
 
         $user = User::where('email', $request->email)->firstOrFail();
 
-        if($user->status==0){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Please verify your email address.',
-            ], 400);
-        }
-        if($user->status==2){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Your account has been blocked by admin. Kindly contact us for further details!',
-            ], 400);
+        if($user->status==2 || $user->status==0){
+            throw new UserAccessException($user);
         }
 
         $user->otp = rand(1000,9999);

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
+use App\Exceptions\UserAccessException;
 
 class AdminLoginController extends Controller
 {
@@ -19,7 +20,6 @@ class AdminLoginController extends Controller
             'password' => 'required|string',
         ]);
         $credentials = $request->only('email', 'password');
-        $credentials['status'] = 1;
         $credentials['userType'] = 1;
 
         $token = Auth::attempt($credentials);
@@ -31,17 +31,9 @@ class AdminLoginController extends Controller
         }
 
         $user = User::findOrFail(Auth::user()->id);
-        if($user->status==0){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Please verify your email address.',
-            ], 400);
-        }
-        if($user->status==2){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Oops! Your account has been blocked by admin. Kindly contact us for further details!',
-            ], 400);
+
+        if($user->status==2 || $user->status==0){
+            throw new UserAccessException($user);
         }
 
         $user = UserCollection::make(Auth::user());
