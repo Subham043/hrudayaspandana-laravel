@@ -10,6 +10,7 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Exceptions\UnauthorizedAdminAccessException;
 use Illuminate\Http\Response;
 
 
@@ -91,6 +92,13 @@ class Handler extends ExceptionHandler
                 'status' => 'error',
                 'message' => 'Oops! You have entered invalid link',
             ], Response::HTTP_NOT_FOUND);
+        }
+        
+        if ($exception instanceof UnauthorizedAdminAccessException && $request->wantsJson()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Oops! You don't have the permission to access this!",
+            ], 403);
         }
 
         return parent::render($request, $exception);
