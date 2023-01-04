@@ -9,10 +9,6 @@ use App\Http\Resources\MediaCollection;
 
 class MediaDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function media_display($id){
         $media = Media::findOrFail($id);

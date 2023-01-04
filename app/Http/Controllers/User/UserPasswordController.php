@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserPasswordController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function user_password(Request $request, $id){
         $decryptedId = Crypt::decryptString($id);

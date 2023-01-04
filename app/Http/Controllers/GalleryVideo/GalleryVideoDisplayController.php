@@ -9,10 +9,6 @@ use App\Http\Resources\GalleryVideoCollection;
 
 class GalleryVideoDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_video_display($id){
         $gallery_video = GalleryVideo::findOrFail($id);

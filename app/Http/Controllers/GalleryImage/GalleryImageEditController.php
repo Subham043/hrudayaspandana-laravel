@@ -10,10 +10,6 @@ use Uuid;
 
 class GalleryImageEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function gallery_image_edit(Request $request, $id){
         $gallery_image = GalleryImage::findOrFail($id);

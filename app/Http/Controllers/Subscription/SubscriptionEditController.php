@@ -9,10 +9,6 @@ use App\Http\Resources\SubscriptionCollection;
 
 class SubscriptionEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function subscription_edit(Request $request, $id){
         $subscription = Subscription::findOrFail($id);

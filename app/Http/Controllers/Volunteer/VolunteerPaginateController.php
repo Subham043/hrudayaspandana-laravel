@@ -9,10 +9,6 @@ use App\Http\Resources\VolunteerCollection;
 
 class VolunteerPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function volunteer_paginate(Request $request){
 

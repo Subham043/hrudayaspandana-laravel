@@ -9,10 +9,6 @@ use App\Http\Resources\EnquiryCollection;
 
 class ContactEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function contact_edit(Request $request, $id){
         $enquiry = Enquiry::findOrFail($id);

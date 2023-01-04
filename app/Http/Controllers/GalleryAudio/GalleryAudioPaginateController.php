@@ -9,10 +9,6 @@ use App\Http\Resources\GalleryAudioCollection;
 
 class GalleryAudioPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_audio_paginate(Request $request){
 

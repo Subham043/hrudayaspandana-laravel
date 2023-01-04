@@ -11,10 +11,6 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 class EventStatusController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function event_status($id){
         $event = Event::findOrFail($id);

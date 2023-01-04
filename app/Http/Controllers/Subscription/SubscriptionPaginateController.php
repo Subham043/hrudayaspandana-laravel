@@ -9,10 +9,6 @@ use App\Http\Resources\SubscriptionCollection;
 
 class SubscriptionPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function subscription_paginate(Request $request){
 

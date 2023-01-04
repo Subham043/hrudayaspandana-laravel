@@ -11,10 +11,6 @@ use Auth;
 
 class GalleryVideoCreateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function gallery_video_create(Request $request){
         $request->validate([

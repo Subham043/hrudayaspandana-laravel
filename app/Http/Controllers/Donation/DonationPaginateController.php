@@ -9,10 +9,6 @@ use App\Http\Resources\DonationCollection;
 
 class DonationPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function donation_paginate(Request $request){
 

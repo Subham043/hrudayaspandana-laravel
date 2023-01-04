@@ -10,10 +10,6 @@ use Uuid;
 
 class MediaEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function media_edit(Request $request, $id){
         $media = Media::findOrFail($id);

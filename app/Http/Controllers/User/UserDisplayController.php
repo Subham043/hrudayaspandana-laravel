@@ -11,10 +11,6 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 class UserDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function user_display($id){
         $decryptedId = Crypt::decryptString($id);

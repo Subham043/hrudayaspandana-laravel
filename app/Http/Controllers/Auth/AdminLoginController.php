@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 
-class LoginController extends Controller
+class AdminLoginController extends Controller
 {
     public function login(Request $request)
     {
@@ -20,6 +20,7 @@ class LoginController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         $credentials['status'] = 1;
+        $credentials['userType'] = 1;
 
         $token = Auth::attempt($credentials);
         if (!$token) {

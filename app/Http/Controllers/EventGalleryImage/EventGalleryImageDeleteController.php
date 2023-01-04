@@ -10,10 +10,6 @@ use App\Http\Resources\GalleryImageCollection;
 
 class EventGalleryImageDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_image_delete($event_id, $id){
         $event = Event::findOrFail($event_id);

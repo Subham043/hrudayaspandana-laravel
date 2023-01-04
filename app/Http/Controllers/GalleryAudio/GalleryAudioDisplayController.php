@@ -9,10 +9,6 @@ use App\Http\Resources\GalleryAudioCollection;
 
 class GalleryAudioDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_audio_display($id){
         $gallery_audio = GalleryAudio::findOrFail($id);

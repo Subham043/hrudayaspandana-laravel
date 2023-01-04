@@ -9,10 +9,6 @@ use App\Http\Resources\UserCollection;
 
 class UserPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function user_paginate(Request $request){
 

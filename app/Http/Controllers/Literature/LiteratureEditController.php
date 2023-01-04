@@ -10,10 +10,6 @@ use Uuid;
 
 class LiteratureEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function literature_edit(Request $request, $id){
         $literature = Literature::findOrFail($id);

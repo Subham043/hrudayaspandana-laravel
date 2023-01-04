@@ -9,10 +9,6 @@ use App\Http\Resources\DonationCollection;
 
 class DonationEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function donation_edit(Request $request, $id){
         $donation = Donation::findOrFail($id);

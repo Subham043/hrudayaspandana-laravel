@@ -11,10 +11,6 @@ use Uuid;
 
 class EventGalleryImageEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function gallery_image_edit(Request $request, $event_id, $id){
         $event = Event::findOrFail($event_id);

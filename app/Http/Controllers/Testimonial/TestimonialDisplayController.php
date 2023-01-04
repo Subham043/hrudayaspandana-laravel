@@ -9,10 +9,6 @@ use App\Http\Resources\TestimonialCollection;
 
 class TestimonialDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function testimonial_display($id){
         $testimonial = Testimonial::findOrFail($id);

@@ -11,10 +11,6 @@ use App\Jobs\SendCustomEmailJob;
 
 class EmailSendController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function email_send($id){
         $email = EmailCollection::make(Email::findOrFail($id));

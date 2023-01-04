@@ -9,10 +9,6 @@ use App\Http\Resources\VolunteerCollection;
 
 class VolunteerDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function volunteer_delete($id){
         $volunteer = Volunteer::findOrFail($id);

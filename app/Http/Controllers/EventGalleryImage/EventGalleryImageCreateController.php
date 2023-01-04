@@ -12,10 +12,6 @@ use Auth;
 
 class EventGalleryImageCreateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function gallery_image_create(Request $request, $event_id){
         $event = Event::findOrFail($event_id);

@@ -9,10 +9,6 @@ use App\Http\Resources\LiteratureCollection;
 
 class LiteratureDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function literature_display($id){
         $literature = Literature::findOrFail($id);

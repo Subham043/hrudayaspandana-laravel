@@ -10,10 +10,6 @@ use App\Http\Resources\UserCollection;
 
 class ProfileUpdateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function profile_update(Request $request)
     {

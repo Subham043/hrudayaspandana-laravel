@@ -10,10 +10,6 @@ use App\Http\Resources\GalleryImageCollection;
 
 class EventGalleryImageDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_image_display($event_id, $id){
         $event = Event::findOrFail($event_id);

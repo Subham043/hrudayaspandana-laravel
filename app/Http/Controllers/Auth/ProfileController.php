@@ -10,10 +10,6 @@ use App\Http\Resources\UserCollection;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function profile()
     {

@@ -10,10 +10,6 @@ use Uuid;
 
 class EventEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function event_edit(Request $request, $id){
         $event = Event::findOrFail($id);

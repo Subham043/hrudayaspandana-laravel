@@ -10,10 +10,6 @@ use Uuid;
 
 class BannerVideoEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function banner_video_edit(Request $request){
         $banner_video = BannerVideo::findOrFail(1);

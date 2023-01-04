@@ -9,10 +9,6 @@ use App\Http\Resources\MediaCollection;
 
 class MediaDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function media_delete($id){
         $media = Media::findOrFail($id);

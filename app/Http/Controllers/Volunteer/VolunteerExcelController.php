@@ -14,10 +14,6 @@ use Storage;
 
 class VolunteerExcelController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function volunteer_excel(Request $request){
         $uuid = Uuid::generate(4)->string;

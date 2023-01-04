@@ -10,10 +10,6 @@ use Uuid;
 
 class GalleryAudioEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function gallery_audio_edit(Request $request, $id){
         $gallery_audio = GalleryAudio::findOrFail($id);

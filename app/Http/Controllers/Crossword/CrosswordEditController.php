@@ -10,10 +10,6 @@ use Uuid;
 
 class CrosswordEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function crossword_edit(Request $request, $id){
         $crossword = Crossword::findOrFail($id);

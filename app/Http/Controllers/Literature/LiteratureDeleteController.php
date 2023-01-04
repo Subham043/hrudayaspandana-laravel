@@ -9,10 +9,6 @@ use App\Http\Resources\LiteratureCollection;
 
 class LiteratureDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function literature_delete($id){
         $literature = Literature::findOrFail($id);

@@ -9,10 +9,6 @@ use App\Http\Resources\BannerCollection;
 
 class BannerDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function banner_delete($id){
         $banner = Banner::findOrFail($id);

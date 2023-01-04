@@ -14,10 +14,6 @@ use Storage;
 
 class ContactExcelController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function contact_excel(Request $request){
         $uuid = Uuid::generate(4)->string;

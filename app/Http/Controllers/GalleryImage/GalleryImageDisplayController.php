@@ -9,10 +9,6 @@ use App\Http\Resources\GalleryImageCollection;
 
 class GalleryImageDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function gallery_image_display($id){
         $gallery_image = GalleryImage::findOrFail($id);

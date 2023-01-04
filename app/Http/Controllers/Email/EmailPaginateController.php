@@ -9,10 +9,6 @@ use App\Http\Resources\EmailCollection;
 
 class EmailPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function email_paginate(Request $request){
 

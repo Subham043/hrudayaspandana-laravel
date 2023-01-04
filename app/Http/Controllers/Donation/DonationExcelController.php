@@ -14,10 +14,6 @@ use Storage;
 
 class DonationExcelController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function donation_excel(Request $request){
         $uuid = Uuid::generate(4)->string;

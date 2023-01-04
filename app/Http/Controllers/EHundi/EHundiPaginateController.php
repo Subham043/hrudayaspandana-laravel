@@ -9,10 +9,6 @@ use App\Http\Resources\EHundiCollection;
 
 class EHundiPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function ehundi_paginate(Request $request){
 

@@ -9,10 +9,6 @@ use App\Http\Resources\EnquiryCollection;
 
 class ContactPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function contact_paginate(Request $request){
 

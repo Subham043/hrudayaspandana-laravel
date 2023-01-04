@@ -11,10 +11,6 @@ use App\Http\Resources\UserCollection;
 
 class PasswordUpdateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function password_update(Request $request)
     {

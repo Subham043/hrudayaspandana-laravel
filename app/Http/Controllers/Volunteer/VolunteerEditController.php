@@ -9,10 +9,6 @@ use App\Http\Resources\VolunteerCollection;
 
 class VolunteerEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function volunteer_edit(Request $request, $id){
         $volunteer = Volunteer::findOrFail($id);

@@ -10,10 +10,6 @@ use Uuid;
 
 class BannerEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function banner_edit(Request $request, $id){
         $banner = Banner::findOrFail($id);

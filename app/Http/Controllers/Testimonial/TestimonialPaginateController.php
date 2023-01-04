@@ -9,10 +9,6 @@ use App\Http\Resources\TestimonialCollection;
 
 class TestimonialPaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function testimonial_paginate(Request $request){
 

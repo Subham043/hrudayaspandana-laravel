@@ -9,10 +9,6 @@ use App\Http\Resources\CrosswordCollection;
 
 class CrosswordDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function crossword_display($id){
         $crossword = Crossword::findOrFail($id);

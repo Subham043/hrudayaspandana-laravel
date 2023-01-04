@@ -9,10 +9,6 @@ use App\Http\Resources\SubscriptionCollection;
 
 class SubscriptionDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function subscription_delete($id){
         $subscription = Subscription::findOrFail($id);

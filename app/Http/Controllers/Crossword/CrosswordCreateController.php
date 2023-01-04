@@ -11,10 +11,6 @@ use Auth;
 
 class CrosswordCreateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function crossword_create(Request $request){
         $request->validate([

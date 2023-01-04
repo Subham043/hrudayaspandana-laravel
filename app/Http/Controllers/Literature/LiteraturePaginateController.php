@@ -9,10 +9,6 @@ use App\Http\Resources\LiteratureCollection;
 
 class LiteraturePaginateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function literature_paginate(Request $request){
 

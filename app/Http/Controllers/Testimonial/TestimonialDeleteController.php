@@ -9,10 +9,6 @@ use App\Http\Resources\TestimonialCollection;
 
 class TestimonialDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function testimonial_delete($id){
         $testimonial = Testimonial::findOrFail($id);

@@ -11,10 +11,6 @@ use Auth;
 
 class GalleryAudioCreateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function gallery_audio_create(Request $request){
         $request->validate([

@@ -9,10 +9,6 @@ use App\Http\Resources\BannerCollection;
 
 class BannerDisplayController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function banner_display($id){
         $banner = Banner::findOrFail($id);

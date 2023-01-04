@@ -9,10 +9,6 @@ use App\Http\Resources\CrosswordCollection;
 
 class CrosswordDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function crossword_delete($id){
         $crossword = Crossword::findOrFail($id);

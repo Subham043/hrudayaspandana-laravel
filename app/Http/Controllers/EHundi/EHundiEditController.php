@@ -9,10 +9,6 @@ use App\Http\Resources\EHundiCollection;
 
 class EHundiEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function ehundi_edit(Request $request, $id){
         $ehundi = EHundi::findOrFail($id);

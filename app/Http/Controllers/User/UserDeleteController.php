@@ -11,10 +11,6 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 class UserDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function user_delete($id){
         $decryptedId = Crypt::decryptString($id);

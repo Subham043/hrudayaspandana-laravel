@@ -9,10 +9,6 @@ use App\Http\Resources\EmailCollection;
 
 class EmailDeleteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     
     public function email_delete($id){
         $email = Email::findOrFail($id);

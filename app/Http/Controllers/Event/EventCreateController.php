@@ -11,10 +11,6 @@ use Auth;
 
 class EventCreateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function event_create(Request $request){
         $request->validate([

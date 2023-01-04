@@ -10,10 +10,6 @@ use Uuid;
 
 class EmailEditController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     public function email_edit(Request $request, $id){
         $email = Email::findOrFail($id);
