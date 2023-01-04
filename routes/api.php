@@ -55,11 +55,13 @@ use App\Http\Controllers\EHundi\EHundiDeleteController;
 use App\Http\Controllers\EHundi\EHundiDisplayController;
 use App\Http\Controllers\EHundi\EHundiExcelController;
 use App\Http\Controllers\Donation\DonationPaginateController;
+use App\Http\Controllers\Donation\DonationUserPaginateController;
 use App\Http\Controllers\Donation\DonationCreateController;
 use App\Http\Controllers\Donation\DonationEditController;
 use App\Http\Controllers\Donation\DonationDeleteController;
 use App\Http\Controllers\Donation\DonationDisplayController;
 use App\Http\Controllers\Donation\DonationExcelController;
+use App\Http\Controllers\Donation\DonationCertificateController;
 use App\Http\Controllers\Donation\DonationVerifyController;
 use App\Http\Controllers\Donation\DonationWebhookController;
 use App\Http\Controllers\Testimonial\TestimonialPaginateController;
@@ -143,7 +145,7 @@ Route::prefix('/auth')->group(function () {
     });
     Route::post('/register', [RegisterController::class, 'register', 'as' => 'register']);
     Route::post('/forgot-password', [ForgotPasswordController::class, 'forgot_password', 'as' => 'forgot_password']);
-    Route::group(['middleware' => ['auth:api', 'admin', 'has.access']], function () {
+    Route::group(['middleware' => ['auth:api','has.access']], function () {
         Route::get('/refresh', [RefreshController::class, 'refresh', 'as' => 'refresh']);
         Route::get('/profile', [ProfileController::class, 'profile', 'as' => 'profile']);
         Route::post('/profile-update', [ProfileUpdateController::class, 'profile_update', 'as' => 'profile_update']);
@@ -269,6 +271,9 @@ Route::prefix('/donation')->group(function () {
     });
     Route::post('/verify-payment', [DonationVerifyController::class, 'donation_verify', 'as' => 'donation_verify']);
     Route::post('webhook', [DonationWebhookController::class, 'donation_webhook', 'as' => 'donation_webhook']);
+    Route::group(['middleware' => ['auth:api', 'has.access']], function () {
+        Route::get('/certificate/{id}', [DonationCertificateController::class, 'donation_certificate', 'as' => 'donation_certificate']);
+    });
     Route::group(['middleware' => ['auth:api', 'admin', 'has.access']], function () {
         Route::post('/edit/{id}', [DonationEditController::class, 'donation_edit', 'as' => 'donation_edit']);
         Route::get('/display/{id}', [DonationDisplayController::class, 'donation_display', 'as' => 'donation_display']);
@@ -318,6 +323,9 @@ Route::prefix('/user')->group(function () {
         Route::get('/excel', [UserExcelController::class, 'user_excel', 'as' => 'user_excel']);
         Route::delete('/delete/{id}', [UserDeleteController::class, 'user_delete', 'as' => 'user_delete']);
         Route::get('/paginate', [UserPaginateController::class, 'user_paginate', 'as' => 'user_paginate']);
+    });
+    Route::group(['middleware' => ['auth:api', 'has.access']], function () {
+        Route::get('/payment-data', [DonationUserPaginateController::class, 'donation_user_paginate', 'as' => 'donation_user_paginate']);
     });
 });
 
