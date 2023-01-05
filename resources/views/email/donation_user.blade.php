@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<p>Hello Admin.</p>
-<p>Here are the donation details:</p>
+<p>Hello {{$data->first_name}} {{$data->last_name}}.</p>
+<p>Thank you for your kind donation made towards {{$data->trust==1 ? 'Sai Mayee Trust' : 'Sri Sai Meru Mathi Trust'}}</p>
+<p>Here is the detail of the donation made by you </p>
 <p><b>Name</b> : <i>{{$data->first_name}} {{$data->last_name}}</i></p>
 <p><b>Phone</b> : <i>{{$data->phone}}</i></p>
 <p><b>Email</b> : <i>{{$data->email}}</i></p>

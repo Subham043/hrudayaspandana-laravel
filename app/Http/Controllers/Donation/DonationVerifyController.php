@@ -9,6 +9,9 @@ use App\Http\Resources\DonationCollection;
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors\SignatureVerificationError;
 use App\Jobs\SendDonationEmailJob;
+use App\Jobs\SendUserDonationEmailJob;
+use Pdf;
+use Uuid;
 
 class DonationVerifyController extends Controller
 {
@@ -51,6 +54,16 @@ class DonationVerifyController extends Controller
 
         $donation = Donation::where('order_id',$request->razorpay_order_id)->firstOrFail();
 
+        $uuid = Uuid::generate(4)->string;
+
+        $data = [
+            'donation' => $donation,
+        ];
+          
+        $pdf = PDF::loadView('pdf.certificate', $data)->setPaper('a4', 'landscape');
+        $pdf->save(storage_path('app/public/certificate/').$uuid.'.pdf');
+
+        dispatch(new SendUserDonationEmailJob($donation, $uuid.'.pdf'));
         dispatch(new SendDonationEmailJob($donation));
 
         return response()->json([
