@@ -63,7 +63,6 @@ use App\Http\Controllers\Donation\DonationDisplayController;
 use App\Http\Controllers\Donation\DonationExcelController;
 use App\Http\Controllers\Donation\DonationCertificateController;
 use App\Http\Controllers\Donation\DonationVerifyController;
-use App\Http\Controllers\Donation\DonationWebhookController;
 use App\Http\Controllers\Testimonial\TestimonialPaginateController;
 use App\Http\Controllers\Testimonial\TestimonialCreateController;
 use App\Http\Controllers\Testimonial\TestimonialEditController;
@@ -270,7 +269,6 @@ Route::prefix('/donation')->group(function () {
         Route::post('/create', [DonationCreateController::class, 'donation_create', 'as' => 'donation_create']);
     });
     Route::post('/verify-payment', [DonationVerifyController::class, 'donation_verify', 'as' => 'donation_verify']);
-    Route::post('webhook', [DonationWebhookController::class, 'donation_webhook', 'as' => 'donation_webhook']);
     Route::group(['middleware' => ['auth:api', 'has.access']], function () {
         Route::get('/certificate/{id}', [DonationCertificateController::class, 'donation_certificate', 'as' => 'donation_certificate']);
     });
