@@ -105,8 +105,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UserAccessException && $request->wantsJson()) {
             return response()->json([
                 'status' => 'error',
-                'message' => "Oops! You have been blocked!",
-                'data' => $exception->showCustomErrorMessage()
+                'message' => $exception->showCustomErrorMessage(),
+                'error_code' => $exception->showCustomErrorCode(),
+                'error_id' => $exception->showUserId(),
             ], 403);
         }
 

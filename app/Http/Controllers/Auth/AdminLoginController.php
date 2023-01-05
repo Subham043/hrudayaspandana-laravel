@@ -25,7 +25,7 @@ class AdminLoginController extends Controller
         if (!$token) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
+                'message' => 'Invalid Credentials',
             ], 401);
         }
 
