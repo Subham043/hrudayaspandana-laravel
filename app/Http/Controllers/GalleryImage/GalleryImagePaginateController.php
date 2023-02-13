@@ -9,11 +9,11 @@ use App\Http\Resources\GalleryImageCollection;
 
 class GalleryImagePaginateController extends Controller
 {
-    
+
     public function gallery_image_paginate(Request $request){
 
         $gallery_image = GalleryImage::orderBy('id', 'DESC');
-        
+
         if ($request->has('search') && !empty($request->input('search'))) {
             $search = $request->input('search');
             $gallery_image = $gallery_image->where(function($q) use($search)  {
@@ -37,14 +37,14 @@ class GalleryImagePaginateController extends Controller
                         $q->where('category', $filter);
                     });
                     break;
-                
+
                 default:
                     # code...
                     break;
             }
         }
 
-        $gallery_image = $gallery_image->paginate(10);
+        $gallery_image = $gallery_image->paginate(9);
 
         return GalleryImageCollection::collection($gallery_image);
     }

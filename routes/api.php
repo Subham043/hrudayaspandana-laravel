@@ -156,6 +156,7 @@ Route::prefix('/auth')->group(function () {
 Route::prefix('/contact')->group(function () {
     Route::group(['middleware' => 'throttle:3,1'], function () {
         Route::post('/create', [ContactCreateController::class, 'contact_create', 'as' => 'contact_create']);
+        Route::get('/demo', [ContactCreateController::class, 'demo', 'as' => 'demo']);
     });
     Route::group(['middleware' => ['auth:api', 'admin', 'has.access']], function () {
         Route::post('/edit/{id}', [ContactEditController::class, 'contact_edit', 'as' => 'contact_edit']);

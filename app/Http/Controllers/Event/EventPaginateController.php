@@ -9,7 +9,7 @@ use App\Http\Resources\EventCollection;
 
 class EventPaginateController extends Controller
 {
-    
+
     public function event_paginate(Request $request){
 
         $event = Event::orderBy('id', 'DESC');
@@ -31,7 +31,7 @@ class EventPaginateController extends Controller
                         $q->where('category', $filter);
                     });
                     break;
-                
+
                 default:
                     # code...
                     break;
@@ -45,7 +45,7 @@ class EventPaginateController extends Controller
             });
         }
 
-        $event = $event->paginate(10);
+        $event = $event->paginate(9);
 
         return EventCollection::collection($event);
     }

@@ -9,10 +9,10 @@ use App\Http\Resources\MediaCollection;
 
 class MediaPaginateController extends Controller
 {
-    
+
     public function media_paginate(Request $request){
 
-        $media = Media::orderBy('id', 'DESC')->paginate(10);
+        $media = Media::orderBy('id', 'DESC')->paginate(9);
 
         return MediaCollection::collection($media);
     }

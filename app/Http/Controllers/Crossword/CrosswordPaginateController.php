@@ -9,10 +9,10 @@ use App\Http\Resources\CrosswordCollection;
 
 class CrosswordPaginateController extends Controller
 {
-    
+
     public function crossword_paginate(Request $request){
 
-        $crossword = Crossword::orderBy('id', 'DESC')->paginate(10);
+        $crossword = Crossword::orderBy('id', 'DESC')->paginate(9);
 
         return CrosswordCollection::collection($crossword);
     }

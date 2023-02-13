@@ -9,10 +9,10 @@ use App\Http\Resources\LiteratureCollection;
 
 class LiteraturePaginateController extends Controller
 {
-    
+
     public function literature_paginate(Request $request){
 
-        $literature = Literature::orderBy('id', 'DESC')->paginate(10);
+        $literature = Literature::orderBy('id', 'DESC')->paginate(9);
 
         return LiteratureCollection::collection($literature);
     }

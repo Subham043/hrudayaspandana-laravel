@@ -9,7 +9,7 @@ use App\Http\Resources\GalleryVideoCollection;
 
 class GalleryVideoPaginateController extends Controller
 {
-    
+
     public function gallery_video_paginate(Request $request){
 
         $gallery_video = GalleryVideo::orderBy('id', 'DESC');
@@ -31,14 +31,14 @@ class GalleryVideoPaginateController extends Controller
                         $q->where('category', $filter);
                     });
                     break;
-                
+
                 default:
                     # code...
                     break;
             }
         }
 
-        $gallery_video = $gallery_video->paginate(10);
+        $gallery_video = $gallery_video->paginate(9);
 
         return GalleryVideoCollection::collection($gallery_video);
     }

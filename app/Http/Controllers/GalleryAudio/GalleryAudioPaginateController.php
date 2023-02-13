@@ -9,10 +9,10 @@ use App\Http\Resources\GalleryAudioCollection;
 
 class GalleryAudioPaginateController extends Controller
 {
-    
+
     public function gallery_audio_paginate(Request $request){
 
-        $gallery_audio = GalleryAudio::orderBy('id', 'DESC')->paginate(10);
+        $gallery_audio = GalleryAudio::orderBy('id', 'DESC')->paginate(9);
 
         return GalleryAudioCollection::collection($gallery_audio);
     }
