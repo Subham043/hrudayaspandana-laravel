@@ -21,14 +21,14 @@ class GalleryVideoPaginateController extends Controller
                     # code...
                     $filter="madhava-seva";
                     $gallery_video = $gallery_video->where(function($q) use($filter)  {
-                        $q->where('category', $filter);
+                        $q->where('category', 'madhava-seva');
                     });
                     break;
                 case 'Manava Seva':
                     # code...
                     $filter="manava-seva";
                     $gallery_video = $gallery_video->where(function($q) use($filter)  {
-                        $q->where('category', $filter);
+                        $q->where('category', 'manava-seva');
                     });
                     break;
 

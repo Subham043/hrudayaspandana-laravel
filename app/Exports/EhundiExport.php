@@ -2,12 +2,12 @@
 
 namespace App\Exports;
 
-use App\Models\Ehundi;
+use App\Models\EHundi;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class EhundiExport implements FromCollection,WithHeadings,WithMapping
+class EHundiExport implements FromCollection,WithHeadings,WithMapping
 {
     public function headings():array{
         return[
@@ -25,9 +25,9 @@ class EhundiExport implements FromCollection,WithHeadings,WithMapping
             'Receipt',
             'Payment ID',
             'Created_at',
-            'Updated_at' 
+            'Updated_at'
         ];
-    } 
+    }
     public function map($ehundi): array
     {
          return[
@@ -46,6 +46,6 @@ class EhundiExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return Ehundi::all();
+        return EHundi::all();
     }
 }

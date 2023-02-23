@@ -28,13 +28,13 @@ class GalleryImagePaginateController extends Controller
                 case 'Madhava Seva':
                     # code...
                     $gallery_image = $gallery_image->where(function($q) use($filter)  {
-                        $q->where('category', $filter);
+                        $q->where('category', 'madhava-seva');
                     });
                     break;
                 case 'Manava Seva':
                     # code...
                     $gallery_image = $gallery_image->where(function($q) use($filter)  {
-                        $q->where('category', $filter);
+                        $q->where('category', 'manava-seva');
                     });
                     break;
 
