@@ -18,22 +18,22 @@ class LiteratureEditController extends Controller
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
             $image = $uuid.'-'.$request->image->getClientOriginalName();
-            
+
             if($literature->image!=null && file_exists(storage_path('app/public/upload/literature').'/'.$literature->image)){
-                unlink(storage_path('app/public/upload/literature/'.$literature->image)); 
+                unlink(storage_path('app/public/upload/literature/'.$literature->image));
             }
 
             $request->image->storeAs('public/upload/literature',$image);
         }else{
             $image = $literature->image;
         }
-        
+
         if((bool)$request->is_pdf && $request->hasFile('file')){
             $uuid = Uuid::generate(4)->string;
             $file = $uuid.'-'.$request->file->getClientOriginalName();
-            
+
             if($literature->file!=null && file_exists(storage_path('app/public/upload/literature').'/'.$literature->file)){
-                unlink(storage_path('app/public/upload/literature/'.$literature->file)); 
+                unlink(storage_path('app/public/upload/literature/'.$literature->file));
             }
 
             $request->file->storeAs('public/upload/literature',$file);
@@ -60,7 +60,7 @@ class LiteratureEditController extends Controller
     private function validation(Request $request){
         $rules = [
             'name' => 'required|string',
-            'image' => 'nullable|mimes:jpeg,png,jpg,webp',
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500',
             'is_pdf' => 'required|boolean',
         ];
         if((bool)$request->is_pdf){

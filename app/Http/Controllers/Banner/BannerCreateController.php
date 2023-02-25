@@ -15,7 +15,7 @@ class BannerCreateController extends Controller
     public function banner_create(Request $request){
         $request->validate([
             'quote' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|dimensions:width=1920,height=850',
         ]);
 
         if($request->hasFile('image')){

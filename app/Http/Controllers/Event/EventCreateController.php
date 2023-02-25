@@ -23,7 +23,7 @@ class EventCreateController extends Controller
             'description2' => 'nullable|string',
             'description3' => 'nullable|string',
             'category' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500',
         ]);
 
         if($request->hasFile('image')){

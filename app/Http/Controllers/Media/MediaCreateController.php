@@ -13,7 +13,7 @@ class MediaCreateController extends Controller
 
     public function media_create(Request $request){
         $request->validate($this->validation($request));
-        
+
         if($request->type==1 && $request->hasFile('media')){
             $uuid = Uuid::generate(4)->string;
             $media_file = $uuid.'-'.$request->media->getClientOriginalName();
@@ -39,7 +39,7 @@ class MediaCreateController extends Controller
             'type' => 'required|integer',
         ];
         if($request->type==1){
-            $rules['media'] = 'required|mimes:jpeg,png,jpg,webp';
+            $rules['media'] = 'required|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500';
         }else{
             $rules['media'] = 'required|string';
         }

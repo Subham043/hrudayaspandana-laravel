@@ -16,15 +16,15 @@ class BannerVideoEditController extends Controller
 
         $request->validate([
             'video' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|dimensions:width=1920,height=850',
         ]);
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
             $image = $uuid.'-'.$request->image->getClientOriginalName();
-            
+
             if($banner_video->image!=null && file_exists(storage_path('app/public/upload/banner_video').'/'.$banner_video->image)){
-                unlink(storage_path('app/public/upload/banner_video/'.$banner_video->image)); 
+                unlink(storage_path('app/public/upload/banner_video/'.$banner_video->image));
             }
 
             $request->image->storeAs('public/upload/banner_video',$image);

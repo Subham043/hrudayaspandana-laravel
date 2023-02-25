@@ -86,6 +86,12 @@ use App\Http\Controllers\User\UserStatusController;
 use App\Http\Controllers\User\UserDeleteController;
 use App\Http\Controllers\User\UserDisplayController;
 use App\Http\Controllers\User\UserExcelController;
+use App\Http\Controllers\Counter\CounterPaginateController;
+use App\Http\Controllers\Counter\CounterRandomController;
+use App\Http\Controllers\Counter\CounterCreateController;
+use App\Http\Controllers\Counter\CounterEditController;
+use App\Http\Controllers\Counter\CounterDeleteController;
+use App\Http\Controllers\Counter\CounterDisplayController;
 use App\Http\Controllers\GalleryImage\GalleryImagePaginateController;
 use App\Http\Controllers\GalleryImage\GalleryImageRandomController;
 use App\Http\Controllers\GalleryImage\GalleryImageCreateController;
@@ -326,6 +332,17 @@ Route::prefix('/user')->group(function () {
     Route::group(['middleware' => ['auth:api', 'has.access']], function () {
         Route::get('/payment-data', [DonationUserPaginateController::class, 'donation_user_paginate', 'as' => 'donation_user_paginate']);
     });
+});
+
+Route::prefix('/counter')->group(function () {
+    Route::group(['middleware' => ['auth:api', 'admin', 'has.access']], function () {
+        Route::post('/create', [CounterCreateController::class, 'counter_create', 'as' => 'counter_create']);
+        Route::post('/edit/{id}', [CounterEditController::class, 'counter_edit', 'as' => 'counter_edit']);
+        Route::get('/display/{id}', [CounterDisplayController::class, 'counter_display', 'as' => 'counter_display']);
+        Route::delete('/delete/{id}', [CounterDeleteController::class, 'counter_delete', 'as' => 'counter_delete']);
+        Route::get('/paginate', [CounterPaginateController::class, 'counter_paginate', 'as' => 'counter_paginate']);
+    });
+    Route::get('/random', [CounterRandomController::class, 'counter_random', 'as' => 'counter_random']);
 });
 
 Route::prefix('/gallery-image')->group(function () {

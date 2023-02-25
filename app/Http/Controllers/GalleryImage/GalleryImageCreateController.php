@@ -17,7 +17,7 @@ class GalleryImageCreateController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'category' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500',
         ]);
 
         if($request->hasFile('image')){

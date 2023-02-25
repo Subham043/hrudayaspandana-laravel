@@ -14,13 +14,13 @@ class MediaEditController extends Controller
     public function media_edit(Request $request, $id){
         $media = Media::findOrFail($id);
         $request->validate($this->validation($request));
-        
+
         if($request->type==1 && $request->hasFile('media')){
             $uuid = Uuid::generate(4)->string;
             $media_file = $uuid.'-'.$request->media->getClientOriginalName();
-            
+
             if($media->media!=null && file_exists(storage_path('app/public/upload/media').'/'.$media->media)){
-                unlink(storage_path('app/public/upload/media/'.$media->media)); 
+                unlink(storage_path('app/public/upload/media/'.$media->media));
             }
 
             $request->media->storeAs('public/upload/media',$media_file);
@@ -47,7 +47,7 @@ class MediaEditController extends Controller
             'type' => 'required|integer',
         ];
         if($request->type==1){
-            $rules['media'] = 'required|mimes:jpeg,png,jpg,webp';
+            $rules['media'] = 'required|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500';
         }else{
             $rules['media'] = 'required|string';
         }

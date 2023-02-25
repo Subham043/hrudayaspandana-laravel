@@ -22,7 +22,7 @@ class LiteratureCreateController extends Controller
         }else{
             $image = null;
         }
-        
+
         if((bool)$request->is_pdf && $request->hasFile('file')){
             $uuid = Uuid::generate(4)->string;
             $file = $uuid.'-'.$request->file->getClientOriginalName();
@@ -49,7 +49,7 @@ class LiteratureCreateController extends Controller
     private function validation(Request $request){
         $rules = [
             'name' => 'required|string',
-            'image' => 'required|mimes:jpeg,png,jpg,webp',
+            'image' => 'required|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500',
             'is_pdf' => 'required|boolean',
         ];
         if((bool)$request->is_pdf){

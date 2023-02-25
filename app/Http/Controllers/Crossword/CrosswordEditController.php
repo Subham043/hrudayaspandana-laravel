@@ -17,15 +17,15 @@ class CrosswordEditController extends Controller
         $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|dimensions:width=800,height=500',
         ]);
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
             $image = $uuid.'-'.$request->image->getClientOriginalName();
-            
+
             if($crossword->image!=null && file_exists(storage_path('app/public/upload/crossword').'/'.$crossword->image)){
-                unlink(storage_path('app/public/upload/crossword/'.$crossword->image)); 
+                unlink(storage_path('app/public/upload/crossword/'.$crossword->image));
             }
 
             $request->image->storeAs('public/upload/crossword',$image);
