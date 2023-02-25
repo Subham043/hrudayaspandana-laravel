@@ -10,7 +10,7 @@ class CounterRandomController extends Controller
 {
 
     public function counter_random(){
-        $counter = Counter::all()->random(6);
+        $counter = Counter::all()->random(4);
 
         return response()->json([
             'status' => 'success',
