@@ -9,9 +9,9 @@ use App\Http\Resources\GalleryImageCollection;
 
 class GalleryImageRandomController extends Controller
 {
-    
+
     public function gallery_image_random(){
-        $gallery_image = GalleryImage::all()->random(6);
+        $gallery_image = GalleryImage::all()->random(8);
 
         return response()->json([
             'status' => 'success',
