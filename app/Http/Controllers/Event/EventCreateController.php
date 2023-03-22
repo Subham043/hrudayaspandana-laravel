@@ -16,7 +16,7 @@ class EventCreateController extends Controller
         $request->validate([
             'name' => 'required|string',
             'sdate' => 'required|string',
-            'edate' => 'required|string',
+            'edate' => 'nullable|string',
             'stime' => 'string',
             'etime' => 'string',
             'description1' => 'required|string',
