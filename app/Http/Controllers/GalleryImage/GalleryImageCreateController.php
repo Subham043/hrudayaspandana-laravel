@@ -8,6 +8,7 @@ use App\Models\GalleryImage;
 use App\Http\Resources\GalleryImageCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class GalleryImageCreateController extends Controller
 {
@@ -22,17 +23,17 @@ class GalleryImageCreateController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
             $request->image->storeAs('public/upload/gallery_image',$image);
         }
 
-        $gallery_image = GalleryImage::create([
+        $gallery_image = GalleryImage::create(Purify::clean([
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
             'image' => $image,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

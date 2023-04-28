@@ -8,6 +8,7 @@ use App\Models\Literature;
 use App\Http\Resources\LiteratureCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class LiteratureCreateController extends Controller
 {
@@ -17,7 +18,7 @@ class LiteratureCreateController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
             $request->image->storeAs('public/upload/literature',$image);
         }else{
             $image = null;
@@ -25,19 +26,19 @@ class LiteratureCreateController extends Controller
 
         if((bool)$request->is_pdf && $request->hasFile('file')){
             $uuid = Uuid::generate(4)->string;
-            $file = $uuid.'-'.$request->file->getClientOriginalName();
+            $file = $uuid.'-'.$request->file->hashName();
             $request->file->storeAs('public/upload/literature',$file);
         }else{
             $file = $request->file;
         }
 
-        $literature = Literature::create([
+        $literature = Literature::create(Purify::clean([
             'name' => $request->name,
             'image' => $image,
             'is_pdf' => $request->is_pdf,
             'file' => $file,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

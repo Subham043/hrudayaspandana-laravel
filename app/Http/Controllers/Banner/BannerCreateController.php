@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Http\Resources\BannerCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class BannerCreateController extends Controller
 {
@@ -20,15 +21,15 @@ class BannerCreateController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
             $request->image->storeAs('public/upload/banner',$image);
         }
 
-        $banner = Banner::create([
+        $banner = Banner::create(Purify::clean([
             'quote' => $request->quote,
             'image' => $image,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

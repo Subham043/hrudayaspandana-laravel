@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Http\Resources\GalleryVideoCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class EventGalleryVideoCreateController extends Controller
 {
@@ -19,12 +20,12 @@ class EventGalleryVideoCreateController extends Controller
             'video' => 'required|string',
         ]);
 
-        $gallery_video = GalleryVideo::create([
+        $gallery_video = GalleryVideo::create(Purify::clean([
             'video' => $request->video,
             'category' => $event->category,
             'event_id' => $event_id,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

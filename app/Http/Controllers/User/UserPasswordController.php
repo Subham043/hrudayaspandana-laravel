@@ -9,6 +9,7 @@ use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Hash;
+use Stevebauman\Purify\Facades\Purify;
 
 class UserPasswordController extends Controller
 {
@@ -22,7 +23,7 @@ class UserPasswordController extends Controller
         ]);
 
         $user->update([
-            'password' => Hash::make($request->password),
+            'password' => Hash::make(Purify::clean($request->password)),
         ]);
 
         return response()->json([

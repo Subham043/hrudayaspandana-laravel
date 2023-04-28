@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
+use Stevebauman\Purify\Facades\Purify;
 
 class LoginController extends Controller
 {
@@ -19,7 +20,7 @@ class LoginController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        $credentials = $request->only('email', 'password');
+        $credentials = Purify::clean($request->only('email', 'password'));
 
         $token = Auth::attempt($credentials);
         if (!$token) {
@@ -30,7 +31,7 @@ class LoginController extends Controller
         }
 
         $user = User::findOrFail(Auth::user()->id);
-        
+
         if($user->status==2 || $user->status==0){
             throw new UserAccessException($user);
         }

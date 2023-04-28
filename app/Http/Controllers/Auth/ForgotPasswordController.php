@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Jobs\SendForgotPasswordEmailJob;
 use App\Exceptions\UserAccessException;
+use Stevebauman\Purify\Facades\Purify;
 
 class ForgotPasswordController extends Controller
 {
@@ -18,7 +19,7 @@ class ForgotPasswordController extends Controller
             'email' => 'required|string|email|max:255',
         ]);
 
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = User::where('email', Purify::clean($request->email))->firstOrFail();
 
         if($user->status==2 || $user->status==0){
             throw new UserAccessException($user);

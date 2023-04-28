@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Donation;
 use App\Http\Resources\DonationCollection;
 use Razorpay\Api\Api;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class DonationCreateController extends Controller
@@ -22,11 +23,11 @@ class DonationCreateController extends Controller
             'currency'        => 'INR',
             'partial_payment' => false,
         ];
-        
+
         $razorpayOrder = $api->order->create($orderData);
         $razorpayOrderId = $razorpayOrder['id'];
 
-        $donation = Donation::create([
+        $donation = Donation::create(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -38,7 +39,7 @@ class DonationCreateController extends Controller
             'receipt' => $receipt,
             'order_id' => $razorpayOrderId,
             'trust' => $request->trust,
-        ]);
+        ]));
 
         $donation = Donation::findOrFail($donation->id);
 

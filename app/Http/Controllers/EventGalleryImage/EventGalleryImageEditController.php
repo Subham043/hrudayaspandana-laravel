@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GalleryImage;
 use App\Models\Event;
 use App\Http\Resources\GalleryImageCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class EventGalleryImageEditController extends Controller
@@ -24,7 +25,7 @@ class EventGalleryImageEditController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
 
             if($gallery_image->image!=null && file_exists(storage_path('app/public/upload/gallery_image').'/'.$gallery_image->image)){
                 unlink(storage_path('app/public/upload/gallery_image/'.$gallery_image->image));
@@ -35,11 +36,11 @@ class EventGalleryImageEditController extends Controller
             $image = $gallery_image->image;
         }
 
-        $gallery_image->update([
+        $gallery_image->update(Purify::clean([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $image,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

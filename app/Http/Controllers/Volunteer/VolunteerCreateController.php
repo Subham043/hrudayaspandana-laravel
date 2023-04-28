@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Volunteer;
 use App\Http\Resources\VolunteerCollection;
 use App\Jobs\SendVolunteerEmailJob;
+use Stevebauman\Purify\Facades\Purify;
 
 class VolunteerCreateController extends Controller
 {
@@ -21,7 +22,7 @@ class VolunteerCreateController extends Controller
             'interest' => 'nullable|string|min:6',
         ]);
 
-        $volunteer = Volunteer::create([
+        $volunteer = Volunteer::create(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -29,7 +30,7 @@ class VolunteerCreateController extends Controller
             'aadhar' => $request->aadhar,
             'address' => $request->address,
             'interest' => $request->interest,
-        ]);
+        ]));
 
         dispatch(new SendVolunteerEmailJob($volunteer));
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GalleryVideo;
 use App\Models\Event;
 use App\Http\Resources\GalleryVideoCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class EventGalleryVideoEditController extends Controller
@@ -20,9 +21,9 @@ class EventGalleryVideoEditController extends Controller
             'video' => 'required|string',
         ]);
 
-        $gallery_video->update([
+        $gallery_video->update(Purify::clean([
             'video' => $request->video,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

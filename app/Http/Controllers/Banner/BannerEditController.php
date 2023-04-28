@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Http\Resources\BannerCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class BannerEditController extends Controller
@@ -21,7 +22,7 @@ class BannerEditController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
 
             if($banner->image!=null && file_exists(storage_path('app/public/upload/banner').'/'.$banner->image)){
                 unlink(storage_path('app/public/upload/banner/'.$banner->image));
@@ -32,10 +33,10 @@ class BannerEditController extends Controller
             $image = $banner->image;
         }
 
-        $banner->update([
+        $banner->update(Purify::clean([
             'quote' => $request->quote,
             'image' => $image,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

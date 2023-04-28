@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EHundi;
 use App\Http\Resources\EHundiCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class EHundiEditController extends Controller
 {
@@ -15,7 +16,7 @@ class EHundiEditController extends Controller
 
         $request->validate($this->validation($request));
 
-        $ehundi->update([
+        $ehundi->update(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -25,7 +26,7 @@ class EHundiEditController extends Controller
             'amount' => $request->amount,
             'trust' => $request->trust,
             'pan' => $request->pan,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

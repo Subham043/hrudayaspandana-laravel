@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use App\Http\Resources\TestimonialCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class TestimonialEditController extends Controller
 {
@@ -18,10 +19,10 @@ class TestimonialEditController extends Controller
             'type' => 'required|integer',
         ]);
 
-        $testimonial->update([
+        $testimonial->update(Purify::clean([
             'testimonial' => $request->testimonial,
             'type' => $request->type,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

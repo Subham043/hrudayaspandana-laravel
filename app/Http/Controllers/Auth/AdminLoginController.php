@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
+use Stevebauman\Purify\Facades\Purify;
 
 class AdminLoginController extends Controller
 {
@@ -18,7 +19,7 @@ class AdminLoginController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        $credentials = $request->only('email', 'password');
+        $credentials = Purify::clean($request->only('email', 'password'));
         $credentials['userType'] = 1;
 
         $token = Auth::attempt($credentials);

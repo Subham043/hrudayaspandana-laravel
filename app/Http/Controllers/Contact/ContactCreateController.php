@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Http\Resources\EnquiryCollection;
 use App\Jobs\SendEnquiryEmailJob;
+use Stevebauman\Purify\Facades\Purify;
 
 class ContactCreateController extends Controller
 {
@@ -19,13 +20,13 @@ class ContactCreateController extends Controller
             'message' => 'required|string|min:6',
         ]);
 
-        $enquiry = Enquiry::create([
+        $enquiry = Enquiry::create(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'message' => $request->message,
-        ]);
+        ]));
 
         dispatch(new SendEnquiryEmailJob($enquiry));
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
+use Stevebauman\Purify\Facades\Purify;
 
 class ProfileUpdateController extends Controller
 {
@@ -15,11 +16,11 @@ class ProfileUpdateController extends Controller
     public function profile_update(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->firstOrFail();
-        
+
         if($user->status==2 || $user->status==0){
             throw new UserAccessException($user);
         }
-        
+
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -27,10 +28,10 @@ class ProfileUpdateController extends Controller
             'phone' => 'required|string|max:10|unique:users,phone,'.Auth::user()->id,
         ]);
 
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->phone = $request->phone;
-        $user->email = $request->email;
+        $user->first_name = Purify::clean($request->first_name);
+        $user->last_name = Purify::clean($request->last_name);
+        $user->phone = Purify::clean($request->phone);
+        $user->email = Purify::clean($request->email);
         $user->save();
 
         return response()->json([

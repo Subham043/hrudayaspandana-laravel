@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Literature;
 use App\Http\Resources\LiteratureCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class LiteratureEditController extends Controller
@@ -17,7 +18,7 @@ class LiteratureEditController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
 
             if($literature->image!=null && file_exists(storage_path('app/public/upload/literature').'/'.$literature->image)){
                 unlink(storage_path('app/public/upload/literature/'.$literature->image));
@@ -30,7 +31,7 @@ class LiteratureEditController extends Controller
 
         if((bool)$request->is_pdf && $request->hasFile('file')){
             $uuid = Uuid::generate(4)->string;
-            $file = $uuid.'-'.$request->file->getClientOriginalName();
+            $file = $uuid.'-'.$request->file->hashName();
 
             if($literature->file!=null && file_exists(storage_path('app/public/upload/literature').'/'.$literature->file)){
                 unlink(storage_path('app/public/upload/literature/'.$literature->file));
@@ -43,12 +44,12 @@ class LiteratureEditController extends Controller
             $file = $literature->file;
         }
 
-        $literature->update([
+        $literature->update(Purify::clean([
             'name' => $request->name,
             'is_pdf' => $request->is_pdf,
             'image' => $image,
             'file' => $file,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donation;
 use App\Http\Resources\DonationCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class DonationEditController extends Controller
 {
@@ -15,7 +16,7 @@ class DonationEditController extends Controller
 
         $request->validate($this->validation($request));
 
-        $donation->update([
+        $donation->update(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -25,7 +26,7 @@ class DonationEditController extends Controller
             'amount' => $request->amount,
             'pan' => $request->pan,
             'trust' => $request->trust,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

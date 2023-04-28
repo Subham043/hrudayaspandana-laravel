@@ -8,6 +8,7 @@ use App\Models\Crossword;
 use App\Http\Resources\CrosswordCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class CrosswordCreateController extends Controller
 {
@@ -21,16 +22,16 @@ class CrosswordCreateController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
             $request->image->storeAs('public/upload/crossword',$image);
         }
 
-        $crossword = Crossword::create([
+        $crossword = Crossword::create(Purify::clean([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $image,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Counter;
 use App\Http\Resources\CounterCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class CounterEditController extends Controller
 {
@@ -18,10 +19,10 @@ class CounterEditController extends Controller
             'counter' => 'required|integer',
         ]);
 
-        $counter->update([
+        $counter->update(Purify::clean([
             'title' => $request->title,
             'counter' => $request->counter,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

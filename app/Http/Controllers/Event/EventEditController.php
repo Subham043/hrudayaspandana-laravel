@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Http\Resources\EventCollection;
 use Uuid;
+use Stevebauman\Purify\Facades\Purify;
 
 class EventEditController extends Controller
 {
@@ -20,6 +21,7 @@ class EventEditController extends Controller
             'edate' => 'nullable|string',
             'stime' => 'string',
             'etime' => 'string',
+            'status' => 'required|string',
             'description1' => 'required|string',
             'description2' => 'nullable|string',
             'description3' => 'nullable|string',
@@ -29,7 +31,7 @@ class EventEditController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
 
             if($event->image!=null && file_exists(storage_path('app/public/upload/event').'/'.$event->image)){
                 unlink(storage_path('app/public/upload/event/'.$event->image));
@@ -40,18 +42,19 @@ class EventEditController extends Controller
             $image = $event->image;
         }
 
-        $event->update([
+        $event->update(Purify::clean([
             'name' => $request->name,
             'sdate' => $request->sdate,
             'edate' => $request->edate,
             'stime' => $request->stime,
             'etime' => $request->etime,
+            'status' => $request->status,
             'description1' => $request->description1,
             'description2' => $request->description2,
             'description3' => $request->description3,
             'category' => $request->category,
             'image' => $image,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

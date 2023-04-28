@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Http\Resources\EnquiryCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class ContactEditController extends Controller
 {
@@ -21,13 +22,13 @@ class ContactEditController extends Controller
             'message' => 'required|string|min:6',
         ]);
 
-        $enquiry->update([
+        $enquiry->update(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'message' => $request->message,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

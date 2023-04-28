@@ -8,6 +8,7 @@ use App\Models\Email;
 use App\Http\Resources\EmailCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class EmailCreateController extends Controller
 {
@@ -17,19 +18,19 @@ class EmailCreateController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
             $request->image->storeAs('public/upload/email',$image);
         }else{
             $image = null;
         }
 
-        $email = Email::create([
+        $email = Email::create(Purify::clean([
             'subject' => $request->subject,
             'message' => $request->message,
             'attachment' => $request->attachment,
             'image' => $image,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

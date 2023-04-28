@@ -8,6 +8,7 @@ use App\Models\GalleryVideo;
 use App\Http\Resources\GalleryVideoCollection;
 use Uuid;
 use Auth;
+use Stevebauman\Purify\Facades\Purify;
 
 class GalleryVideoCreateController extends Controller
 {
@@ -18,11 +19,11 @@ class GalleryVideoCreateController extends Controller
             'category' => 'required|string',
         ]);
 
-        $gallery_video = GalleryVideo::create([
+        $gallery_video = GalleryVideo::create(Purify::clean([
             'video' => $request->video,
             'category' => $request->category,
             'user_id' => Auth::user()->id,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

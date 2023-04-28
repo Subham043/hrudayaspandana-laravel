@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
 use App\Http\Resources\VolunteerCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class VolunteerEditController extends Controller
 {
@@ -23,7 +24,7 @@ class VolunteerEditController extends Controller
             'interest' => 'nullable|string|min:6',
         ]);
 
-        $volunteer->update([
+        $volunteer->update(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -31,7 +32,7 @@ class VolunteerEditController extends Controller
             'aadhar' => $request->aadhar,
             'address' => $request->address,
             'interest' => $request->interest,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use App\Http\Resources\MediaCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class MediaCreateController extends Controller
@@ -16,16 +17,16 @@ class MediaCreateController extends Controller
 
         if($request->type==1 && $request->hasFile('media')){
             $uuid = Uuid::generate(4)->string;
-            $media_file = $uuid.'-'.$request->media->getClientOriginalName();
+            $media_file = $uuid.'-'.$request->media->hashName();
             $request->media->storeAs('public/upload/media',$media_file);
         }else{
             $media_file = $request->media;
         }
 
-        $media = Media::create([
+        $media = Media::create(Purify::clean([
             'type' => $request->type,
             'media' => $media_file,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

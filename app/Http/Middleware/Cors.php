@@ -31,9 +31,12 @@ class Cors
             foreach($headers as $key => $value) {
                 $response->headers->set($key, $value);
             }
+            $response->headers->set('Content-Security-Policy', "default-src 'self';style-src 'self';script-src 'self';font-src 'self';object-src 'self';img-src 'self' ".$origin.";frame-src 'self' ".$origin.";frame-ancestors 'self' ".$origin.";connect-src 'self' ".$origin.";form-action 'self';base-uri 'self';script-src-attr 'none';upgrade-insecure-requests");
+            return $response;
+        }else{
+            $response->headers->set('Content-Security-Policy', "default-src 'self';style-src 'self';script-src 'self';font-src 'self';object-src 'self';img-src 'self';frame-src 'self';frame-ancestors 'self';connect-src 'self';form-action 'self';base-uri 'self';script-src-attr 'none';upgrade-insecure-requests");
             return $response;
         }
 
-        return $response;
     }
 }

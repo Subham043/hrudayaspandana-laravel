@@ -16,6 +16,7 @@
         "php-open-source-saver/jwt-auth": "^2.0",
         "psr/simple-cache": "^2.0",
         "razorpay/razorpay": "^2.8",
+        "stevebauman/purify": "^6.0",
         "webpatser/laravel-uuid": "^4.0"
     },
     "require-dev": {

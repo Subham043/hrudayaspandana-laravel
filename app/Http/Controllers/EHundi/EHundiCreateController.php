@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\EHundi;
 use App\Http\Resources\EHundiCollection;
 use App\Jobs\SendEhundiEmailJob;
+use Stevebauman\Purify\Facades\Purify;
 
 class EHundiCreateController extends Controller
 {
     public function ehundi_create(Request $request){
         $request->validate($this->validation($request));
 
-        $ehundi = EHundi::create([
+        $ehundi = EHundi::create(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -23,7 +24,7 @@ class EHundiCreateController extends Controller
             'amount' => $request->amount,
             'trust' => $request->trust,
             'pan' => $request->pan,
-        ]);
+        ]));
 
         dispatch(new SendEhundiEmailJob($ehundi));
 

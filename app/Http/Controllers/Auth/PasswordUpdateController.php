@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Exceptions\UserAccessException;
+use Stevebauman\Purify\Facades\Purify;
 
 class PasswordUpdateController extends Controller
 {
@@ -16,11 +17,11 @@ class PasswordUpdateController extends Controller
     public function password_update(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->firstOrFail();
-        
+
         if($user->status==2 || $user->status==0){
             throw new UserAccessException($user);
         }
-        
+
         $request->validate([
             'old_password' => 'required|string|min:6',
             'password' => 'required|string|min:6',
@@ -32,7 +33,7 @@ class PasswordUpdateController extends Controller
             ], 400);
         }
 
-        $user->password = Hash::make($request->password);
+        $user->password = Hash::make(Purify::clean($request->password));
         $user->save();
 
         return response()->json([

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Email;
 use App\Http\Resources\EmailCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class EmailEditController extends Controller
@@ -23,10 +24,10 @@ class EmailEditController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
-            
+            $image = $uuid.'-'.$request->image->hashName();
+
             if($email->image!=null && file_exists(storage_path('app/public/upload/email').'/'.$email->image)){
-                unlink(storage_path('app/public/upload/email/'.$email->image)); 
+                unlink(storage_path('app/public/upload/email/'.$email->image));
             }
 
             $request->image->storeAs('public/upload/email',$image);
@@ -34,12 +35,12 @@ class EmailEditController extends Controller
             $image = $email->image;
         }
 
-        $email->update([
+        $email->update(Purify::clean([
             'subject' => $request->subject,
             'message' => $request->message,
             'attachment' => $request->attachment,
             'image' => $image,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

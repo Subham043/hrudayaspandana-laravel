@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use App\Http\Resources\MediaCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class MediaEditController extends Controller
@@ -17,7 +18,7 @@ class MediaEditController extends Controller
 
         if($request->type==1 && $request->hasFile('media')){
             $uuid = Uuid::generate(4)->string;
-            $media_file = $uuid.'-'.$request->media->getClientOriginalName();
+            $media_file = $uuid.'-'.$request->media->hashName();
 
             if($media->media!=null && file_exists(storage_path('app/public/upload/media').'/'.$media->media)){
                 unlink(storage_path('app/public/upload/media/'.$media->media));
@@ -30,10 +31,10 @@ class MediaEditController extends Controller
             $media_file = $media->media;
         }
 
-        $media->update([
+        $media->update(Purify::clean([
             'type' => $request->type,
             'media' => $media_file,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

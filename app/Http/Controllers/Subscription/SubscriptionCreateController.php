@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 use App\Http\Resources\SubscriptionCollection;
+use Stevebauman\Purify\Facades\Purify;
 
 class SubscriptionCreateController extends Controller
 {
@@ -21,7 +22,7 @@ class SubscriptionCreateController extends Controller
             'crossword' => 'required|boolean',
         ]);
 
-        $subscription = Subscription::create([
+        $subscription = Subscription::create(Purify::clean([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -30,7 +31,7 @@ class SubscriptionCreateController extends Controller
             'newsletter' => $request->newsletter,
             'blog' => $request->blog,
             'crossword' => $request->crossword,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

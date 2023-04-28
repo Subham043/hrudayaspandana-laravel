@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Crossword;
 use App\Http\Resources\CrosswordCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class CrosswordEditController extends Controller
@@ -22,7 +23,7 @@ class CrosswordEditController extends Controller
 
         if($request->hasFile('image')){
             $uuid = Uuid::generate(4)->string;
-            $image = $uuid.'-'.$request->image->getClientOriginalName();
+            $image = $uuid.'-'.$request->image->hashName();
 
             if($crossword->image!=null && file_exists(storage_path('app/public/upload/crossword').'/'.$crossword->image)){
                 unlink(storage_path('app/public/upload/crossword/'.$crossword->image));
@@ -33,11 +34,11 @@ class CrosswordEditController extends Controller
             $image = $crossword->image;
         }
 
-        $crossword->update([
+        $crossword->update(Purify::clean([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $image,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

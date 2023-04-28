@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GalleryAudio;
 use App\Http\Resources\GalleryAudioCollection;
+use Stevebauman\Purify\Facades\Purify;
 use Uuid;
 
 class GalleryAudioEditController extends Controller
@@ -23,10 +24,10 @@ class GalleryAudioEditController extends Controller
 
         if($request->hasFile('audio')){
             $uuid = Uuid::generate(4)->string;
-            $audio = $uuid.'-'.$request->audio->getClientOriginalName();
-            
+            $audio = $uuid.'-'.$request->audio->hashName();
+
             if($gallery_audio->audio!=null && file_exists(storage_path('app/public/upload/gallery_audio').'/'.$gallery_audio->audio)){
-                unlink(storage_path('app/public/upload/gallery_audio/'.$gallery_audio->audio)); 
+                unlink(storage_path('app/public/upload/gallery_audio/'.$gallery_audio->audio));
             }
 
             $request->audio->storeAs('public/upload/gallery_audio',$audio);
@@ -34,12 +35,12 @@ class GalleryAudioEditController extends Controller
             $audio = $gallery_audio->audio;
         }
 
-        $gallery_audio->update([
+        $gallery_audio->update(Purify::clean([
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
             'audio' => $audio,
-        ]);
+        ]));
 
         return response()->json([
             'status' => 'success',

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Resources\UserCollection;
 use App\Jobs\SendVerificationEmailJob;
+use Stevebauman\Purify\Facades\Purify;
 
 class RegisterController extends Controller
 {
@@ -21,14 +22,14 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $user = User::create([
+        $user = User::create(Purify::clean([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'otp' => rand(1000,9999),
-        ]);
+        ]));
 
         $user = User::where('email', $request->email)->firstOrFail();
         dispatch(new SendVerificationEmailJob($user));

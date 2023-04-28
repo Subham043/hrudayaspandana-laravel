@@ -12,17 +12,18 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Carbon\Carbon;
 use App\Exceptions\UserAccessException;
+use Stevebauman\Purify\Facades\Purify;
 
 class ResetPasswordController extends Controller
 {
     public function reset_password(Request $request, $user_id){
         $decryptedId = Crypt::decryptString($user_id);
         $user = User::where('id', $decryptedId)->firstOrFail();
-        
+
         if($user->status==2 || $user->status==0){
             throw new UserAccessException($user);
         }
-        
+
         if($user->status==2){
             return response()->json([
                 'status' => 'error',
@@ -41,7 +42,7 @@ class ResetPasswordController extends Controller
             ], 400);
         }
 
-        $user->password = Hash::make($request->password);
+        $user->password = Hash::make(Purify::clean($request->password));
         $user->save();
 
         return response()->json([
