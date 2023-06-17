@@ -26,11 +26,11 @@ class SubscriptionCreateController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'ebook' => $request->ebook,
-            'event' => $request->event,
-            'newsletter' => $request->newsletter,
-            'blog' => $request->blog,
-            'crossword' => $request->crossword,
+            'ebook' => $request->ebook==true ? 1 : 0,
+            'event' => $request->event==true ? 1 : 0,
+            'newsletter' => $request->newsletter==true ? 1 : 0,
+            'blog' => $request->blog==true ? 1 : 0,
+            'crossword' => $request->crossword==true ? 1 : 0,
         ]));
 
         return response()->json([
